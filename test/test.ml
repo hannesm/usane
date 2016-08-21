@@ -17,7 +17,6 @@ let r32 ?a () =
     | None -> 0xFFFFFFFFL
     | Some x -> Int64.of_int x
   in
-  Printf.printf "bound %Lx\n" bound ;
   Int64.to_int (Random.int64 bound)
 
 let of_int_r () =
@@ -132,6 +131,15 @@ let compare_works () =
   Alcotest.check Alcotest.int "compare 0x80000000 0x7FFFFFFF is 1"
     1 Uint32.(compare (of_int 0x80000000) (of_int 0x7FFFFFFF))
 
+let succ_pred_at_bound () =
+  Alcotest.check uint32 "succ 0x7FFFFFFF is 0x80000000"
+    0x80000000l Uint32.(succ (of_int 0x7FFFFFFF)) ;
+  Alcotest.check uint32 "succ 0x80000000 is 0x80000001"
+    0x80000001l Uint32.(succ (of_int 0x80000000)) ;
+  Alcotest.check uint32 "pred 0x80000000 is 0x7FFFFFFF"
+    0x7FFFFFFFl Uint32.(pred (of_int 0x80000000)) ;
+  Alcotest.check uint32 "pred 0x80000001 is 0x80000000"
+    0x80000000l Uint32.(pred (of_int 0x80000001))
 
 let basic_tests = [
   "zero is 0l", `Quick, is_zero ;
@@ -145,7 +153,8 @@ let basic_tests = [
   "sub_ints", `Slow, sub_int ;
   "sub underflows", `Quick, sub_int_underflow ;
   "sub_wrap wraps", `Quick, sub_int_wrap ;
-  "compare works", `Quick, compare_works
+  "compare works", `Quick, compare_works ;
+  "succ/pred works", `Quick, succ_pred_at_bound
 ]
 
 let tests = [
