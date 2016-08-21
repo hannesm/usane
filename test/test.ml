@@ -12,7 +12,7 @@ let is_zero () = Alcotest.check uint32 "zarro" 0l Uint32.zero
 let is_one () = Alcotest.check uint32 "uno" 1l Uint32.one
 
 let of_int_r () =
-  for i = 0 to 1000 do
+  for _i = 0 to 1000 do
     let r = Nocrypto.Rng.Int.gen Int32.(to_int max_int) in
     Alcotest.check uint32 "random" (Int32.of_int r) (Uint32.of_int r)
   done
@@ -28,13 +28,13 @@ let int_bound () =
     (fun () -> ignore (Uint32.of_int (0x100000000)))
 
 let to_of_int () =
-  for i = 0 to 1000 do
+  for _i = 0 to 1000 do
     let r = Nocrypto.Rng.Int.gen 0xFFFFFFFF in
     Alcotest.(check int "to_int (of_int x) works" r Uint32.(to_int (of_int r)))
   done
 
 let add_ints () =
-  for i = 0 to 1000 do
+  for _i = 0 to 1000 do
     let a = Nocrypto.Rng.Int.gen 0xFFFFFFFF in
     let b = Nocrypto.Rng.Int.gen (0xFFFFFFFF - a) in
     Alcotest.check uint32 "add works" (Uint32.of_int (a + b))
@@ -67,7 +67,7 @@ let add_int_wrap () =
     Uint32.(add_wrap (of_int 0x80000000) (of_int 0x7FFFFFFF))
 
 let sub_int () =
-  for i = 0 to 1000 do
+  for _i = 0 to 1000 do
     let a = Nocrypto.Rng.Int.gen 0xFFFFFFFF in
     let b = Nocrypto.Rng.Int.gen a in
     Alcotest.check uint32 "sub works" (Uint32.of_int (a - b))
