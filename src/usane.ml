@@ -41,7 +41,7 @@ module Uint32 = struct
 
   let compare a b =
     try if sub a b = 0l then 0 else 1
-    with Invalid_argument "underflow" -> -1
+    with Invalid_argument _ -> -1
 
   let (+) = add
 
