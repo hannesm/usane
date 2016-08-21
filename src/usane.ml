@@ -27,25 +27,21 @@ module Uint32 = struct
     else
       Int32.to_int t
 
-  let add a b = add_overflow a b
+  let add_exn a b = add_overflow a b
 
   let add_wrap a b = Int32.add a b
 
-  let sub a b = sub_underflow a b
+  let sub_exn a b = sub_underflow a b
 
   let sub_wrap a b = Int32.sub a b
 
-  let pred t = sub t one
+  let pred t = sub_exn t one
 
-  let succ t = add t one
+  let succ t = add_exn t one
 
   let compare a b =
-    try if sub a b = 0l then 0 else 1
+    try if sub_exn a b = 0l then 0 else 1
     with Invalid_argument _ -> -1
-
-  let (+) = add
-
-  let (-) = sub
 end
 
 

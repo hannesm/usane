@@ -45,23 +45,23 @@ let add_ints () =
   for _i = 0 to 1000 do
     let a = r32 () in
     let b = r32 ~a:(0xFFFFFFFF - a) () in
-    Alcotest.check uint32 "add works" (Uint32.of_int (a + b))
-      Uint32.(add (of_int a) (of_int b))
+    Alcotest.check uint32 "add_exn works" (Uint32.of_int (a + b))
+      Uint32.(add_exn (of_int a) (of_int b))
   done
 
 let add_int_overflow () =
   Alcotest.check_raises "add 0xFFFFFFFF 1 raises"
     (Invalid_argument "overflow")
-    (fun () -> ignore Uint32.(add (of_int 0xFFFFFFFF) one)) ;
+    (fun () -> ignore Uint32.(add_exn (of_int 0xFFFFFFFF) one)) ;
   Alcotest.check_raises "succ 0xFFFFFFFF raises"
     (Invalid_argument "overflow")
     (fun () -> ignore Uint32.(succ (of_int 0xFFFFFFFF))) ;
   Alcotest.check_raises "add 0x800000000 0x80000000 raises"
     (Invalid_argument "overflow")
-    (fun () -> ignore Uint32.(add (of_int 0x80000000) (of_int 0x80000000))) ;
+    (fun () -> ignore Uint32.(add_exn (of_int 0x80000000) (of_int 0x80000000))) ;
   Alcotest.check uint32 "add 0x800000000 0x7FFFFFFF is good"
     0xFFFFFFFFl
-    Uint32.(add (of_int 0x80000000) (of_int 0x7FFFFFFF))
+    Uint32.(add_exn (of_int 0x80000000) (of_int 0x7FFFFFFF))
 
 let add_int_wrap () =
   Alcotest.check uint32 "add_wrap 0xFFFFFFFF 1 is 0"
@@ -79,22 +79,22 @@ let sub_int () =
     let a = r32 () in
     let b = r32 ~a () in
     Alcotest.check uint32 "sub works" (Uint32.of_int (a - b))
-      Uint32.(sub (of_int a) (of_int b))
+      Uint32.(sub_exn (of_int a) (of_int b))
   done
 
 let sub_int_underflow () =
   Alcotest.check_raises "sub 0 1 raises"
     (Invalid_argument "underflow")
-    (fun () -> ignore Uint32.(sub zero one)) ;
+    (fun () -> ignore Uint32.(sub_exn zero one)) ;
   Alcotest.check_raises "pred 0 raises"
     (Invalid_argument "underflow")
     (fun () -> ignore Uint32.(pred zero)) ;
   Alcotest.check_raises "sub 0x800000000 0x80000001 raises"
     (Invalid_argument "underflow")
-    (fun () -> ignore Uint32.(sub (of_int 0x80000000) (of_int 0x80000001))) ;
+    (fun () -> ignore Uint32.(sub_exn (of_int 0x80000000) (of_int 0x80000001))) ;
   Alcotest.check uint32 "sub 0x800000000 0x7FFFFFFF is 1"
     1l
-    Uint32.(sub (of_int 0x80000000) (of_int 0x7FFFFFFF))
+    Uint32.(sub_exn (of_int 0x80000000) (of_int 0x7FFFFFFF))
 
 let sub_int_wrap () =
   Alcotest.check uint32 "sub_wrap 0 1 is 0xFFFFFFFF"

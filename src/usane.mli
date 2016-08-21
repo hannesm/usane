@@ -23,25 +23,25 @@ module Uint32 : sig
       @raise Invalid_argument if out of range (might happen on 32 bit systems). *)
   val to_int : t -> int
 
-  (** [add t t'] is the sum of t and t'.
+  (** [add_exn t t'] is the sum of t and t'.
       @raise Invalid_argument on overflow. *)
-  val add : t -> t -> t
+  val add_exn : t -> t -> t
 
   (** [add_wrap t t'] is the sum of t and t'. Wraps on overflow. *)
   val add_wrap : t -> t -> t
 
-  (** [sub t t'] is the result of t - t'.
+  (** [sub_exn t t'] is the result of t - t'.
       @raise Invalid_argument on underflow. *)
-  val sub : t -> t -> t
+  val sub_exn : t -> t -> t
 
   (** [sub_wrap t t'] is the result of t - t'. Wraps on underflow. *)
   val sub_wrap : t -> t -> t
 
-  (** [succ t] is the successor of [t]: [add t one].
+  (** [succ t] is the successor of [t]: [add_exn t one].
       @raise Invalid_argument if [t] is [2 ^ 32 - 1] (overflow). *)
   val succ : t -> t
 
-  (** [pred t] is the predecessor of [t]: [sub t one].
+  (** [pred t] is the predecessor of [t]: [sub_exn t one].
       @raise Invalid_argument if [t] is [zero] (underflow). *)
   val pred : t -> t
 
@@ -49,12 +49,6 @@ module Uint32 : sig
       0 if [t] and [t'] are equal,
       1 if [t] is greater than [t']. *)
   val compare : t -> t -> int
-
-  (** [+] is a synonym for [add] *)
-  val (+) : t -> t -> t
-
-  (** [-] is a synonym for [sub] *)
-  val (-) : t -> t -> t
 end
 
 
