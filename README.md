@@ -8,4 +8,6 @@ overflow and underflow.
 
 ## Documentation
 
+[![Build Status](https://travis-ci.org/hannesm/usane.svg?branch=master)](https://travis-ci.org/hannesm/usane)
+
 [API Documentation](https://hannesm.github.io/usane/doc/) is available online.
