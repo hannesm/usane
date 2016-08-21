@@ -8,21 +8,16 @@
 #define Uint32_val(v) (*((uint32_t *) Data_custom_val(v)))
 
 #ifdef __clang__
-#if __has_builtin(__builtin_uadd_overflow)
-#define NEED 0
-#else
+#if ! __has_builtin(__builtin_uadd_overflow)
 #define NEED 1
 #endif
 #else
-#define GCC_VERSION (__GNUC__ * 100 + __GNUC_MINOR__)
-#if GCC_VERSION >= 501
-#define NEED 0
-#else
+#if (__GNUC__ * 100 + __GNUC_MINOR__) < 501
 #define NEED 1
 #endif
 #endif
 
-#if NEED == 1
+#ifdef NEED
 #define __unsigned_add_overflow(a, b, d) ({	\
 	typeof(a) __a = (a);			\
 	typeof(b) __b = (b);			\
