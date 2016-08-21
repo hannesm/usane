@@ -12,7 +12,6 @@ depends: [
   "ocamlbuild" {build}
   "topkg" {build}
   "alcotest" {test & >= "0.6.0"}
-  "nocrypto" {test}
 ]
 
 build: [

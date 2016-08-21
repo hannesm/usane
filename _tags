@@ -5,4 +5,4 @@ true : warn(+A-4-6-44-48-58)
 <src/usane.cmxs> : link_usane
 
 "src" : include
-<test/test.{ml,byte,native}> : custom, link_usane, package(alcotest), package(nocrypto), package(nocrypto.unix)
+<test/test.{ml,byte,native}> : custom, link_usane, package(alcotest)

@@ -11,9 +11,18 @@ let uint32 =
 let is_zero () = Alcotest.check uint32 "zarro" 0l Uint32.zero
 let is_one () = Alcotest.check uint32 "uno" 1l Uint32.one
 
+
+let r32 ?a () =
+  let bound = match a with
+    | None -> 0xFFFFFFFFL
+    | Some x -> Int64.of_int x
+  in
+  Printf.printf "bound %Lx\n" bound ;
+  Int64.to_int (Random.int64 bound)
+
 let of_int_r () =
   for _i = 0 to 1000 do
-    let r = Nocrypto.Rng.Int.gen Int32.(to_int max_int) in
+    let r = r32 () in
     Alcotest.check uint32 "random" (Int32.of_int r) (Uint32.of_int r)
   done
 
@@ -29,14 +38,14 @@ let int_bound () =
 
 let to_of_int () =
   for _i = 0 to 1000 do
-    let r = Nocrypto.Rng.Int.gen 0xFFFFFFFF in
+    let r = r32 () in
     Alcotest.(check int "to_int (of_int x) works" r Uint32.(to_int (of_int r)))
   done
 
 let add_ints () =
   for _i = 0 to 1000 do
-    let a = Nocrypto.Rng.Int.gen 0xFFFFFFFF in
-    let b = Nocrypto.Rng.Int.gen (0xFFFFFFFF - a) in
+    let a = r32 () in
+    let b = r32 ~a:(0xFFFFFFFF - a) () in
     Alcotest.check uint32 "add works" (Uint32.of_int (a + b))
       Uint32.(add (of_int a) (of_int b))
   done
@@ -68,8 +77,8 @@ let add_int_wrap () =
 
 let sub_int () =
   for _i = 0 to 1000 do
-    let a = Nocrypto.Rng.Int.gen 0xFFFFFFFF in
-    let b = Nocrypto.Rng.Int.gen a in
+    let a = r32 () in
+    let b = r32 ~a () in
     Alcotest.check uint32 "sub works" (Uint32.of_int (a - b))
       Uint32.(sub (of_int a) (of_int b))
   done
@@ -146,5 +155,5 @@ let tests = [
 let () =
   if Sys.word_size <= 32 then
     Printf.eprintf "supposed to be run on 64 bit archs, expect failures" ;
-  Nocrypto_entropy_unix.initialize () ;
+  Random.self_init () ;
   Alcotest.run "Uint32 tests" tests
