@@ -1,0 +1,7 @@
+description = "Unsigned integer for OCaml"
+version = "%%VERSION%%"
+requires = ""
+archive(byte) = "usane.cma"
+archive(native) = "usane.cmxa"
+plugin(byte) = "usane.cma"
+plugin(native) = "usane.cmxs"
