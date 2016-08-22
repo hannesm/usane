@@ -43,9 +43,9 @@ Type of an unsigned 32 bit integer.  It is represented as an <code class="code">
 <b>Raises</b> <code>Invalid_argument</code> if the integer is out of range.<br>
 </div>
 
-<pre><span id="VALto_int"><span class="keyword">val</span> to_int</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> int</code></pre><div class="info ">
-<code class="code">to_int t</code> is the integer representation of <code class="code">t</code>.<br>
-<b>Raises</b> <code>Invalid_argument</code> if out of range (can happen on 32 bit systems).<br>
+<pre><span id="VALto_int"><span class="keyword">val</span> to_int</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> int option</code></pre><div class="info ">
+<code class="code">to_int t</code> is the integer representation of <code class="code">t</code>, if it fits, <code class="code"><span class="constructor">None</span></code>
+      otherwise.<br>
 </div>
 
 <pre><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
@@ -70,8 +70,12 @@ Type of an unsigned 32 bit integer.  It is represented as an <code class="code">
 </div>
 
 <pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> int</code></pre><div class="info ">
-<code class="code">compare t t'</code> is -1 if <code class="code">t</code> is smaller than <code class="code">t'</code>,
-      0 if <code class="code">t</code> and <code class="code">t'</code> are equal,
-      1 if <code class="code">t</code> is greater than <code class="code">t'</code>.<br>
+<code class="code">compare t t'</code> is
+      <ul>
+<li><code class="code">-1</code> if <code class="code">t</code> is smaller than <code class="code">t'</code>,</li>
+<li><code class="code">0</code> if <code class="code">t</code> and <code class="code">t'</code> are equal,</li>
+<li><code class="code">1</code> if <code class="code">t</code> is greater than <code class="code">t'</code>.</li>
+</ul>
+<br>
 </div>
 </body></html>
