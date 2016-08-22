@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="Up" href="Usane.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Usane" rel="Chapter" href="Usane.html"><title>Usane.Uint32</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Usane.html" title="Usane">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Usane.Uint32.html">Usane.Uint32</a></h1>
+
+<pre><span class="keyword">module</span> Uint32: <code class="code"><span class="keyword">sig</span></code> <a href="Usane.Uint32.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+Unsigned 32 bit integers, ranging from 0 to 4294967295 (2 ^ 32 - 1).<br>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = <code class="type">int32</code> </pre>
+<div class="info ">
+Type of an unsigned 32 bit integer.  It is represented as an <code class="code">int32</code><br>
+</div>
+
+
+<pre><span id="VALpp"><span class="keyword">val</span> pp</span> : <code class="type">Format.formatter -> <a href="Usane.Uint32.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<code class="code">pp ppf u</code> prints the unsigned 32bit integer.<br>
+</div>
+
+<pre><span id="VALzero"><span class="keyword">val</span> zero</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a></code></pre><div class="info ">
+<code class="code">zero</code> is 0.<br>
+</div>
+
+<pre><span id="VALone"><span class="keyword">val</span> one</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a></code></pre><div class="info ">
+<code class="code">one</code> is 1.<br>
+</div>
+
+<pre><span id="VALof_int"><span class="keyword">val</span> of_int</span> : <code class="type">int -> <a href="Usane.Uint32.html#TYPEt">t</a></code></pre><div class="info ">
+<code class="code">of_int i</code> is the integer <code class="code">i</code> converted to an unsigned 32 bit integer.<br>
+<b>Raises</b> <code>Invalid_argument</code> if the integer is out of range.<br>
+</div>
+
+<pre><span id="VALto_int"><span class="keyword">val</span> to_int</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<code class="code">to_int t</code> is the integer representation of <code class="code">t</code>.<br>
+<b>Raises</b> <code>Invalid_argument</code> if out of range (might happen on 32 bit systems).<br>
+</div>
+
+<pre><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+<code class="code">add t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the sum of <code class="code">t</code> and <code class="code">t'</code> (modulo <code class="code">2 ^
+      32 - 1</code>).  If the sum does not fit into 32 bits, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, <code class="code"><span class="keyword">false</span></code>
+      otherwise.<br>
+</div>
+
+<pre><span id="VALsub"><span class="keyword">val</span> sub</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+<code class="code">sub t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t</code> - <code class="code">t'</code> (modulo <code class="code">2
+      ^ 32 - 1</code>).  If <code class="code">t</code> is smaller than <code class="code">t'</code>, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, <code class="code"><span class="keyword">false</span></code>
+      otherwise.<br>
+</div>
+
+<pre><span id="VALsucc"><span class="keyword">val</span> succ</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+<code class="code">succ t</code> is the successor of <code class="code">t</code>: <code class="code">add t one</code>.  If <code class="code">t</code> is <code class="code">2 ^ 32 - 1</code>,
+      <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, <code class="code"><span class="keyword">false</span></code> otherwise.<br>
+</div>
+
+<pre><span id="VALpred"><span class="keyword">val</span> pred</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+<code class="code">pred t</code> is the predecessor of <code class="code">t</code>: <code class="code">sub t one</code>.  If <code class="code">t</code> is <code class="code">zero</code>, <code class="code">wrap</code>
+      is <code class="code"><span class="keyword">true</span></code>, <code class="code"><span class="keyword">false</span></code> otherwise.<br>
+</div>
+
+<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<code class="code">compare t t'</code> is -1 if <code class="code">t</code> is smaller than <code class="code">t'</code>,
+      0 if <code class="code">t</code> and <code class="code">t'</code> are equal,
+      1 if <code class="code">t</code> is greater than <code class="code">t'</code>.<br>
+</div>
+</body></html>
