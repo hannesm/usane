@@ -19,7 +19,21 @@
 Sane unsigned integers.
 <p>
 
-    <em>d45bfc4 - <a href="https://github.com/hannesm/usane ">homepage</a></em><br>
+    Instead of automatically wrapping and leaving it up to the caller to detect
+    wrapping around, this library provides the information whether the operation
+    lead to a overflow explicitly.  Each operation results in a tuple of the
+    concrete value <code class="code">t</code> and a <code class="code">bool</code> whether it overflew.  The implementation
+    uses C compiler builtins (__builtin_uadd_overflow etc.) if available (since
+    GCC 5.1 and Clang 3.4).
+<p>
+
+    It is not a replacement for arithmetic operations in OCaml, but designed for
+    network protocols where often sequence numbers are used (and either wrapping
+    around is accepted or should lead to re-establishing or re-keying of the
+    connection).
+<p>
+
+    <em>d656472 - <a href="https://github.com/hannesm/usane ">homepage</a></em><br>
 </div>
 <hr width="100%">
 
