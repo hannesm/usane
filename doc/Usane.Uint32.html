@@ -16,7 +16,7 @@
 <h1>Module <a href="type_Usane.Uint32.html">Usane.Uint32</a></h1>
 
 <pre><span class="keyword">module</span> Uint32: <code class="code"><span class="keyword">sig</span></code> <a href="Usane.Uint32.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
-Unsigned 32 bit integers, ranging from 0 to 4294967295 (2 ^ 32 - 1).<br>
+Unsigned 32 bit integers, ranging from 0 to 2 ^ 32 - 1 (4294967295).<br>
 </div>
 <hr width="100%">
 
@@ -49,19 +49,19 @@ Type of an unsigned 32 bit integer.  It is represented as an <code class="code">
 </div>
 
 <pre><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">add t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the sum of <code class="code">t</code> and <code class="code">t'</code> (modulo
-      4294967295).  If the sum does not fit into 32 bits, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>,
+<code class="code">add t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t</code> + <code class="code">t'</code> modulo
+      (2 ^ 32 - 1).  If the sum does not fit into 32 bits, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>,
       otherwise <code class="code"><span class="keyword">false</span></code>.<br>
 </div>
 
 <pre><span id="VALsub"><span class="keyword">val</span> sub</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">sub t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t</code> - <code class="code">t'</code> (modulo
-      4294967295).  If <code class="code">t</code> is smaller than <code class="code">t'</code>, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, otherwise
+<code class="code">sub t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t</code> - <code class="code">t'</code> modulo
+      (2 ^ 32 - 1).  If <code class="code">t</code> is smaller than <code class="code">t'</code>, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, otherwise
       <code class="code"><span class="keyword">false</span></code>.<br>
 </div>
 
 <pre><span id="VALsucc"><span class="keyword">val</span> succ</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">succ t</code> is the successor of <code class="code">t</code>: <code class="code">add t one</code>.  If <code class="code">t</code> is 4294967295,
+<code class="code">succ t</code> is the successor of <code class="code">t</code>: <code class="code">add t one</code>.  If <code class="code">t</code> is (2 ^ 32 - 1),
       <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, otherwise <code class="code"><span class="keyword">false</span></code>.<br>
 </div>
 
