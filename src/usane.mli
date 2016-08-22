@@ -3,7 +3,7 @@
 
     {e %%VERSION%% - {{:%%PKG_HOMEPAGE%% }homepage}} *)
 
-(** Unsigned 32 bit integers, ranging from 0 to 4294967295 (2 ^ 32 - 1). *)
+(** Unsigned 32 bit integers, ranging from 0 to 2 ^ 32 - 1 (4294967295). *)
 module Uint32 : sig
 
   (** Type of an unsigned 32 bit integer.  It is represented as an [int32]*)
@@ -23,25 +23,24 @@ module Uint32 : sig
   val of_int : int -> t
 
   (** [to_int t] is the integer representation of [t].
-      @raise Invalid_argument if out of range (might happen on 32 bit systems). *)
+      @raise Invalid_argument if out of range (can happen on 32 bit systems). *)
   val to_int : t -> int
 
-  (** [add t t'] is [r, wrap], where [r] is the sum of [t] and [t'] (modulo [2 ^
-      32 - 1]).  If the sum does not fit into 32 bits, [wrap] is [true], [false]
-      otherwise. *)
+  (** [add t t'] is [r, wrap], where [r] is the result of [t + t' mod (2 ^ 32 -
+      1)].  If the sum does not fit into 32 bits, [wrap] is [true], otherwise
+      [false]. *)
   val add : t -> t -> t * bool
 
-  (** [sub t t'] is [r, wrap], where [r] is the result of [t] - [t'] (modulo [2
-      ^ 32 - 1]).  If [t] is smaller than [t'], [wrap] is [true], [false]
-      otherwise. *)
+  (** [sub t t'] is [r, wrap], where [r] is the result of [t - t' mod (2 ^ 32 -
+      1)].  If [t] is smaller than [t'], [wrap] is [true], otherwise [false]. *)
   val sub : t -> t -> t * bool
 
-  (** [succ t] is the successor of [t]: [add t one].  If [t] is [2 ^ 32 - 1],
-      [wrap] is [true], [false] otherwise. *)
+  (** [succ t] is the successor of [t]: [add t one].  If [t] is 2 ^ 32 - 1,
+      [wrap] is [true], otherwise [false]. *)
   val succ : t -> t * bool
 
   (** [pred t] is the predecessor of [t]: [sub t one].  If [t] is [zero], [wrap]
-      is [true], [false] otherwise. *)
+      is [true], otherwise [false]. *)
   val pred : t -> t * bool
 
   (** [compare t t'] is -1 if [t] is smaller than [t'],
