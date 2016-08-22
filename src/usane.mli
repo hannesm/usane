@@ -23,27 +23,23 @@ module Uint32 : sig
       @raise Invalid_argument if out of range (might happen on 32 bit systems). *)
   val to_int : t -> int
 
-  (** [add_exn t t'] is the sum of t and t'.
-      @raise Invalid_argument on overflow. *)
-  val add_exn : t -> t -> t
+  (** [add t t'] is [r, wrap], where [r] is the sum of [t] and [t'] (modulo [2 ^
+      32 - 1]).  If the sum does not fit into 32 bits, [wrap] is [true], [false]
+      otherwise. *)
+  val add : t -> t -> t * bool
 
-  (** [add_wrap t t'] is the sum of t and t'. Wraps on overflow. *)
-  val add_wrap : t -> t -> t
+  (** [sub t t'] is [r, wrap], where [r] is the result of [t] - [t'] (modulo [2
+      ^ 32 - 1]).  If [t] is smaller than [t'], [wrap] is [true], [false]
+      otherwise. *)
+  val sub : t -> t -> t * bool
 
-  (** [sub_exn t t'] is the result of t - t'.
-      @raise Invalid_argument on underflow. *)
-  val sub_exn : t -> t -> t
+  (** [succ t] is the successor of [t]: [add t one].  If [t] is [2 ^ 32 - 1],
+      [wrap] is [true], [false] otherwise. *)
+  val succ : t -> t * bool
 
-  (** [sub_wrap t t'] is the result of t - t'. Wraps on underflow. *)
-  val sub_wrap : t -> t -> t
-
-  (** [succ t] is the successor of [t]: [add_exn t one].
-      @raise Invalid_argument if [t] is [2 ^ 32 - 1] (overflow). *)
-  val succ : t -> t
-
-  (** [pred t] is the predecessor of [t]: [sub_exn t one].
-      @raise Invalid_argument if [t] is [zero] (underflow). *)
-  val pred : t -> t
+  (** [pred t] is the predecessor of [t]: [sub t one].  If [t] is [zero], [wrap]
+      is [true], [false] otherwise. *)
+  val pred : t -> t * bool
 
   (** [compare t t'] is -1 if [t] is smaller than [t'],
       0 if [t] and [t'] are equal,

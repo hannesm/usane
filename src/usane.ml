@@ -2,8 +2,8 @@ module Uint32 = struct
 
   type t = int32
 
-  external add_overflow : t -> t -> t = "caml_uint32_add_overflow"
-  external sub_underflow : t -> t -> t = "caml_uint32_sub_underflow"
+  external add_overflow : t -> t -> t * bool = "caml_uint32_add_overflow"
+  external sub_underflow : t -> t -> t * bool = "caml_uint32_sub_underflow"
 
   let pp ppf t = Format.fprintf ppf "0x%lX" t
 
@@ -27,21 +27,19 @@ module Uint32 = struct
     else
       Int32.to_int t
 
-  let add_exn a b = add_overflow a b
+  let add a b = add_overflow a b
 
-  let add_wrap a b = Int32.add a b
+  let sub a b = sub_underflow a b
 
-  let sub_exn a b = sub_underflow a b
+  let pred t = sub t one
 
-  let sub_wrap a b = Int32.sub a b
-
-  let pred t = sub_exn t one
-
-  let succ t = add_exn t one
+  let succ t = add t one
 
   let compare a b =
-    try if sub_exn a b = 0l then 0 else 1
-    with Invalid_argument _ -> -1
+    match sub a b with
+    | _, true -> -1
+    | 0l, _ -> 0
+    | _, false -> 1
 end
 
 

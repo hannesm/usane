@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdbool.h>
 
 #include <caml/memory.h>
 #include <caml/alloc.h>
@@ -44,23 +45,29 @@
 CAMLprim value
 caml_uint32_add_overflow (value a, value b) {
   uint32_t ua, ub, uc;
-  CAMLparam0();
+  bool wrap;
+  CAMLparam2(a, b);
   ua = Uint32_val(a);
   ub = Uint32_val(b);
-  if (__unsigned_add_overflow(ua, ub, &uc))
-    caml_invalid_argument("overflow");
-  else
-    CAMLreturn(caml_copy_int32(uc));
+  wrap = __unsigned_add_overflow(ua, ub, &uc);
+  CAMLlocal1(res);
+  res = caml_alloc_tuple(2);
+  Store_field(res, 0, caml_copy_int32(uc));
+  Store_field(res, 1, Val_bool(wrap));
+  CAMLreturn(res);
 }
 
 CAMLprim value
 caml_uint32_sub_underflow (value a, value b) {
   uint32_t ua, ub, uc;
-  CAMLparam0();
+  bool wrap;
+  CAMLparam2(a, b);
   ua = Uint32_val(a);
   ub = Uint32_val(b);
-  if (__unsigned_sub_overflow(ua, ub, &uc))
-    caml_invalid_argument("underflow");
-  else
-    CAMLreturn(caml_copy_int32(uc));
+  wrap = __unsigned_sub_overflow(ua, ub, &uc);
+  CAMLlocal1(res);
+  res = caml_alloc_tuple(2);
+  Store_field(res, 0, caml_copy_int32(uc));
+  Store_field(res, 1, Val_bool(wrap));
+  CAMLreturn(res);
 }
