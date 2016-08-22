@@ -37,7 +37,8 @@ let int_bound () =
 let to_of_int () =
   for _i = 0 to 1000 do
     let r = r32 () in
-    Alcotest.(check int "to_int (of_int x) works" r Uint32.(to_int (of_int r)))
+    Alcotest.(check (option int) "to_int (of_int x) works" (Some r)
+                Uint32.(to_int (of_int r)))
   done
 
 let add_ints () =

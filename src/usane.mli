@@ -22,9 +22,9 @@ module Uint32 : sig
       @raise Invalid_argument if the integer is out of range. *)
   val of_int : int -> t
 
-  (** [to_int t] is the integer representation of [t].
-      @raise Invalid_argument if out of range (can happen on 32 bit systems). *)
-  val to_int : t -> int
+  (** [to_int t] is the integer representation of [t], if it fits, [None]
+      otherwise. *)
+  val to_int : t -> int option
 
   (** [add t t'] is [r, wrap], where [r] is the result of [t + t' mod (2 ^ 32 -
       1)].  If the sum does not fit into 32 bits, [wrap] is [true], otherwise
@@ -43,9 +43,11 @@ module Uint32 : sig
       is [true], otherwise [false]. *)
   val pred : t -> t * bool
 
-  (** [compare t t'] is -1 if [t] is smaller than [t'],
-      0 if [t] and [t'] are equal,
-      1 if [t] is greater than [t']. *)
+  (** [compare t t'] is
+      {ul
+      {- [-1] if [t] is smaller than [t'],}
+      {- [0] if [t] and [t'] are equal,}
+      {- [1] if [t] is greater than [t'].}} *)
   val compare : t -> t -> int
 end
 

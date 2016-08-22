@@ -21,11 +21,11 @@ module Uint32 = struct
 
   let to_int t =
     if Sys.word_size <= 32 && t < 0l then
-      invalid_arg "out of range"
+      None
     else if t < 0l then
-      Int32.(to_int (add t min_int)) + Int32.(to_int max_int) + 1
+      Some (Int32.(to_int (add t min_int)) + Int32.(to_int max_int) + 1)
     else
-      Int32.to_int t
+      Some (Int32.to_int t)
 
   let add a b = add_overflow a b
 
