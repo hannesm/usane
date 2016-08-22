@@ -9,7 +9,7 @@ module Uint32 : sig
   (** Type of an unsigned 32 bit integer.  It is represented as an [int32]*)
   type t = int32
 
-  (** [pp ppf u] prints the unsigned 32bit integer. *)
+  (** [pp ppf u] prints the unsigned 32bit integer in hex encoding. *)
   val pp : Format.formatter -> t -> unit
 
   (** [zero] is 0. *)

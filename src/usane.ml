@@ -5,7 +5,7 @@ module Uint32 = struct
   external add_overflow : t -> t -> t * bool = "caml_uint32_add_overflow"
   external sub_underflow : t -> t -> t * bool = "caml_uint32_sub_underflow"
 
-  let pp ppf t = Format.fprintf ppf "0x%lX" t
+  let pp ppf t = Format.fprintf ppf "0x%08lX" t
 
   let zero = 0l
 
