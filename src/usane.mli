@@ -1,4 +1,7 @@
-(** Sane unsigned integers. *)
+(** Sane unsigned integers.
+
+
+    {e %%VERSION%% - {{:%%PKG_HOMEPAGE%% }homepage}} *)
 
 (** Unsigned 32 bit integers, ranging from 0 to 4294967295 (2 ^ 32 - 1). *)
 module Uint32 : sig
