@@ -16,7 +16,7 @@
 <tr><td align="left"><br>A</td></tr>
 <tr><td><a href="Usane.Uint32.html#VALadd">add</a> [<a href="Usane.Uint32.html">Usane.Uint32</a>]</td>
 <td><div class="info">
-<code class="code">add t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t + t' <span class="keyword">mod</span> (2 ^ 32 -
+<code class="code">add t t'</code> is <code class="code">r, carry</code>, where <code class="code">r</code> is the result of <code class="code">t + t' <span class="keyword">mod</span> (2 ^ 32 -
       1)</code>.
 </div>
 </td></tr>
@@ -52,7 +52,7 @@
 <tr><td align="left"><br>S</td></tr>
 <tr><td><a href="Usane.Uint32.html#VALsub">sub</a> [<a href="Usane.Uint32.html">Usane.Uint32</a>]</td>
 <td><div class="info">
-<code class="code">sub t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t - t' <span class="keyword">mod</span> (2 ^ 32 -
+<code class="code">sub t t'</code> is <code class="code">r, carry</code>, where <code class="code">r</code> is the result of <code class="code">t - t' <span class="keyword">mod</span> (2 ^ 32 -
       1)</code>.
 </div>
 </td></tr>
@@ -64,7 +64,7 @@
 <tr><td align="left"><br>T</td></tr>
 <tr><td><a href="Usane.Uint32.html#VALto_int">to_int</a> [<a href="Usane.Uint32.html">Usane.Uint32</a>]</td>
 <td><div class="info">
-<code class="code">to_int t</code> is the integer representation of <code class="code">t</code>, wrapped in <code class="code"><span class="constructor">Some</span></code>.
+<code class="code">to_int t</code> is the integer representation of <code class="code">t</code>, encapsulated in <code class="code"><span class="constructor">Some</span></code>.
 </div>
 </td></tr>
 <tr><td align="left"><br>Z</td></tr>
