@@ -45,29 +45,29 @@ Type of an unsigned 32 bit integer.  It is represented as an <code class="code">
 
 <pre><span id="VALto_int"><span class="keyword">val</span> to_int</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> int</code></pre><div class="info ">
 <code class="code">to_int t</code> is the integer representation of <code class="code">t</code>.<br>
-<b>Raises</b> <code>Invalid_argument</code> if out of range (might happen on 32 bit systems).<br>
+<b>Raises</b> <code>Invalid_argument</code> if out of range (can happen on 32 bit systems).<br>
 </div>
 
 <pre><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">add t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the sum of <code class="code">t</code> and <code class="code">t'</code> (modulo <code class="code">2 ^
-      32 - 1</code>).  If the sum does not fit into 32 bits, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, <code class="code"><span class="keyword">false</span></code>
-      otherwise.<br>
+<code class="code">add t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the sum of <code class="code">t</code> and <code class="code">t'</code> (modulo
+      4294967295).  If the sum does not fit into 32 bits, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>,
+      otherwise <code class="code"><span class="keyword">false</span></code>.<br>
 </div>
 
 <pre><span id="VALsub"><span class="keyword">val</span> sub</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">sub t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t</code> - <code class="code">t'</code> (modulo <code class="code">2
-      ^ 32 - 1</code>).  If <code class="code">t</code> is smaller than <code class="code">t'</code>, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, <code class="code"><span class="keyword">false</span></code>
-      otherwise.<br>
+<code class="code">sub t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t</code> - <code class="code">t'</code> (modulo
+      4294967295).  If <code class="code">t</code> is smaller than <code class="code">t'</code>, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, otherwise
+      <code class="code"><span class="keyword">false</span></code>.<br>
 </div>
 
 <pre><span id="VALsucc"><span class="keyword">val</span> succ</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">succ t</code> is the successor of <code class="code">t</code>: <code class="code">add t one</code>.  If <code class="code">t</code> is <code class="code">2 ^ 32 - 1</code>,
-      <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, <code class="code"><span class="keyword">false</span></code> otherwise.<br>
+<code class="code">succ t</code> is the successor of <code class="code">t</code>: <code class="code">add t one</code>.  If <code class="code">t</code> is 4294967295,
+      <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, otherwise <code class="code"><span class="keyword">false</span></code>.<br>
 </div>
 
 <pre><span id="VALpred"><span class="keyword">val</span> pred</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
 <code class="code">pred t</code> is the predecessor of <code class="code">t</code>: <code class="code">sub t one</code>.  If <code class="code">t</code> is <code class="code">zero</code>, <code class="code">wrap</code>
-      is <code class="code"><span class="keyword">true</span></code>, <code class="code"><span class="keyword">false</span></code> otherwise.<br>
+      is <code class="code"><span class="keyword">true</span></code>, otherwise <code class="code"><span class="keyword">false</span></code>.<br>
 </div>
 
 <pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> int</code></pre><div class="info ">
