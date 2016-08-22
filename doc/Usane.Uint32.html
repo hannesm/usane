@@ -49,15 +49,19 @@ Type of an unsigned 32 bit integer.  It is represented as an <code class="code">
 </div>
 
 <pre><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">add t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t</code> + <code class="code">t'</code> modulo
-      (2 ^ 32 - 1).  If the sum does not fit into 32 bits, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>,
-      otherwise <code class="code"><span class="keyword">false</span></code>.<br>
+<code class="code">add t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t</code> + <code class="code">t'</code> mod (2 ^ 32<ul>
+<li>1).  If the sum does not fit into 32 bits, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, otherwise
+      <code class="code"><span class="keyword">false</span></code>.</li>
+</ul>
+<br>
 </div>
 
 <pre><span id="VALsub"><span class="keyword">val</span> sub</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">sub t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t</code> - <code class="code">t'</code> modulo
-      (2 ^ 32 - 1).  If <code class="code">t</code> is smaller than <code class="code">t'</code>, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, otherwise
-      <code class="code"><span class="keyword">false</span></code>.<br>
+<code class="code">sub t t'</code> is <code class="code">r, wrap</code>, where <code class="code">r</code> is the result of <code class="code">t</code> - <code class="code">t'</code> mod (2 ^ 32<ul>
+<li>1).  If <code class="code">t</code> is smaller than <code class="code">t'</code>, <code class="code">wrap</code> is <code class="code"><span class="keyword">true</span></code>, otherwise
+      <code class="code"><span class="keyword">false</span></code>.</li>
+</ul>
+<br>
 </div>
 
 <pre><span id="VALsucc"><span class="keyword">val</span> succ</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
