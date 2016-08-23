@@ -30,14 +30,6 @@ Type of an unsigned 32 bit integer.  It is represented as an <code class="code">
 <code class="code">pp ppf u</code> prints the unsigned 32bit integer in hex encoding.<br>
 </div>
 
-<pre><span id="VALzero"><span class="keyword">val</span> zero</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a></code></pre><div class="info ">
-<code class="code">zero</code> is <code class="code">0</code>.<br>
-</div>
-
-<pre><span id="VALone"><span class="keyword">val</span> one</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a></code></pre><div class="info ">
-<code class="code">one</code> is <code class="code">1</code>.<br>
-</div>
-
 <pre><span id="VALof_int"><span class="keyword">val</span> of_int</span> : <code class="type">int -> <a href="Usane.Uint32.html#TYPEt">t</a></code></pre><div class="info ">
 <code class="code">of_int i</code> is the integer <code class="code">i</code> converted to an unsigned 32 bit integer.<br>
 <b>Raises</b> <code>Invalid_argument</code> if the integer is out of range.<br>
@@ -61,12 +53,12 @@ Type of an unsigned 32 bit integer.  It is represented as an <code class="code">
 </div>
 
 <pre><span id="VALsucc"><span class="keyword">val</span> succ</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">succ t</code> is the successor of <code class="code">t</code>: <code class="code">add t one</code>.  If <code class="code">t</code> is <code class="code">2 ^ 32 - 1</code>,
+<code class="code">succ t</code> is the successor of <code class="code">t</code>: <code class="code">add t 1l</code>.  If <code class="code">t</code> is <code class="code">2 ^ 32 - 1</code>,
       <code class="code">carry</code> is <code class="code"><span class="keyword">true</span></code>, otherwise it is <code class="code"><span class="keyword">false</span></code>.<br>
 </div>
 
 <pre><span id="VALpred"><span class="keyword">val</span> pred</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">pred t</code> is the predecessor of <code class="code">t</code>: <code class="code">sub t one</code>.  If <code class="code">t</code> is <code class="code">0</code>, <code class="code">carry</code>
+<code class="code">pred t</code> is the predecessor of <code class="code">t</code>: <code class="code">sub t 1l</code>.  If <code class="code">t</code> is <code class="code">0</code>, <code class="code">carry</code>
       is <code class="code"><span class="keyword">true</span></code>, otherwise it is <code class="code"><span class="keyword">false</span></code>.<br>
 </div>
 
