@@ -31,18 +31,18 @@ Sane unsigned integers.
     operations, such as a comparison and incrementing by one.
 <p>
 
-    To ease adaption, the representation is using the same width signed
-    representation built in to OCaml, if available (<code class="code">int32</code>, <code class="code">int64</code>).  This
-    way, unsafe operations from the signed modules <code class="code"><span class="constructor">Int32</span></code> and <code class="code"><span class="constructor">Int64</span></code> can be
-    used on those values.  But also all existing libraries already using that
-    representation (such as <code class="code">cstruct</code>) interoperate with <code class="code">usane</code>.
+    To ease interoperation with other libraries, the representation is the same
+    width signed representation provided by OCaml, if present (which is the case
+    for <code class="code">int32</code> and <code class="code">int64</code>).  Watch out to avoid <code class="code"><span class="constructor">Int32</span></code> and <code class="code"><span class="constructor">Int64</span></code> operations
+    which wrap around silently.
 <p>
 
-    The implementation uses C compiler builtins (__builtin_uadd_overflow etc.)
-    if available, since GCC 5.1 and Clang 3.4.
+    The implementation of <code class="code">usane</code> uses C compiler builtins
+    (__builtin_uadd_overflow etc.).  These are available since GCC 5.1 and Clang
+    3.4.
 <p>
 
-    <em>da29a51 - <a href="https://github.com/hannesm/usane ">homepage</a></em><br>
+    <em>298a145 - <a href="https://github.com/hannesm/usane ">homepage</a></em><br>
 </div>
 <hr width="100%">
 
