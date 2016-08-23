@@ -8,9 +8,6 @@ let uint32 =
   end in
   (module M : Alcotest.TESTABLE with type t = M.t)
 
-let is_zero () = Alcotest.check uint32 "zarro" 0l Uint32.zero
-let is_one () = Alcotest.check uint32 "uno" 1l Uint32.one
-
 let r32 ?a () =
   let bound = match a with
     | None -> 0xFFFFFFFFL
@@ -52,7 +49,7 @@ let add_ints () =
 let add_int_overflow () =
   Alcotest.(check (pair uint32 bool) "add 0xFFFFFFFF 1 wraps"
               (0l, true)
-              Uint32.(add (of_int 0xFFFFFFFF) one)) ;
+              Uint32.(add (of_int 0xFFFFFFFF) 1l)) ;
   Alcotest.(check (pair uint32 bool) "succ 0xFFFFFFFF wraps"
               (0l, true)
               Uint32.(succ (of_int 0xFFFFFFFF))) ;
@@ -75,10 +72,10 @@ let sub_int () =
 let sub_int_underflow () =
   Alcotest.(check (pair uint32 bool) "sub 0 1 wraps"
               (0xFFFFFFFFl, true)
-              Uint32.(sub zero one)) ;
+              Uint32.(sub 0l 1l)) ;
   Alcotest.(check (pair uint32 bool) "pred 0 wraps"
               (0xFFFFFFFFl, true)
-              Uint32.(pred zero)) ;
+              Uint32.(pred 0l)) ;
   Alcotest.(check (pair uint32 bool) "sub 0x800000000 0x80000001 wraps"
               (0xFFFFFFFFl, true)
               Uint32.(sub (of_int 0x80000000) (of_int 0x80000001))) ;
@@ -90,17 +87,17 @@ let compare_works () =
   Alcotest.check Alcotest.int "compare 0xFFFFFFFF 0xFFFFFFFF is 0"
     0 Uint32.(compare (of_int 0xFFFFFFFF) (of_int 0xFFFFFFFF)) ;
   Alcotest.check Alcotest.int "compare 0 0 is 0"
-    0 Uint32.(compare zero zero) ;
+    0 Uint32.(compare 0l 0l) ;
   Alcotest.check Alcotest.int "compare 1 1 is 0"
-    0 Uint32.(compare one one) ;
+    0 Uint32.(compare 1l 1l) ;
   Alcotest.check Alcotest.int "compare 0 1 is -1"
-    (-1) Uint32.(compare zero one) ;
+    (-1) Uint32.(compare 0l 1l) ;
   Alcotest.check Alcotest.int "compare 1 0 is 1"
-    1 Uint32.(compare one zero) ;
+    1 Uint32.(compare 1l 0l) ;
   Alcotest.check Alcotest.int "compare 0xFFFFFFFF 0 is 1"
-    1 Uint32.(compare (of_int 0xFFFFFFFF) zero) ;
+    1 Uint32.(compare (of_int 0xFFFFFFFF) 0l) ;
   Alcotest.check Alcotest.int "compare 0 0xFFFFFFFF is -1"
-    (-1) Uint32.(compare zero (of_int 0xFFFFFFFF)) ;
+    (-1) Uint32.(compare 0l (of_int 0xFFFFFFFF)) ;
   Alcotest.check Alcotest.int "compare 0xFFFFFFFF 0xFFFFFFFE is 1"
     1 Uint32.(compare (of_int 0xFFFFFFFF) (of_int 0xFFFFFFFE)) ;
   Alcotest.check Alcotest.int "compare 0xFFFFFFFE 0xFFFFFFFF is -1"
@@ -121,8 +118,6 @@ let succ_pred_at_bound () =
               (0x80000000l, false) Uint32.(pred (of_int 0x80000001)))
 
 let basic_tests = [
-  "zero is 0l", `Quick, is_zero ;
-  "one is 1l", `Quick, is_one ;
   "random of_int", `Slow, of_int_r ;
   "bounds of_int", `Quick, int_bound ;
   "to/of_int", `Slow, to_of_int ;

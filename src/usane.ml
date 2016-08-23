@@ -7,10 +7,6 @@ module Uint32 = struct
 
   let pp ppf t = Format.fprintf ppf "0x%08lX" t
 
-  let zero = 0l
-
-  let one = 1l
-
   let of_int i =
     if i < 0 then
       invalid_arg "out of range"
@@ -31,9 +27,9 @@ module Uint32 = struct
 
   let sub a b = sub_underflow a b
 
-  let pred t = sub t one
+  let pred t = sub t 1l
 
-  let succ t = add t one
+  let succ t = add t 1l
 
   let compare a b =
     match sub a b with

@@ -30,12 +30,6 @@ module Uint32 : sig
   (** [pp ppf u] prints the unsigned 32bit integer in hex encoding. *)
   val pp : Format.formatter -> t -> unit
 
-  (** [zero] is [0]. *)
-  val zero : t
-
-  (** [one] is [1]. *)
-  val one : t
-
   (** [of_int i] is the integer [i] converted to an unsigned 32 bit integer.
       @raise Invalid_argument if the integer is out of range. *)
   val of_int : int -> t
@@ -54,11 +48,11 @@ module Uint32 : sig
       [t] is smaller than [t'], [carry] is [true], otherwise it is [false]. *)
   val sub : t -> t -> t * bool
 
-  (** [succ t] is the successor of [t]: [add t one].  If [t] is [2 ^ 32 - 1],
+  (** [succ t] is the successor of [t]: [add t 1l].  If [t] is [2 ^ 32 - 1],
       [carry] is [true], otherwise it is [false]. *)
   val succ : t -> t * bool
 
-  (** [pred t] is the predecessor of [t]: [sub t one].  If [t] is [0], [carry]
+  (** [pred t] is the predecessor of [t]: [sub t 1l].  If [t] is [0], [carry]
       is [true], otherwise it is [false]. *)
   val pred : t -> t * bool
 
