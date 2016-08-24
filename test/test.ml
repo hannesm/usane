@@ -60,7 +60,43 @@ let add_int_overflow () =
               (0xFFFFFFFFl, false)
               Uint32.(add (of_int 0x80000000) (of_int 0x7FFFFFFF)))
 
-let sub_int () =
+let mul_ints () =
+  for _i = 0 to 1000 do
+    let a = r32 () in
+    let b = r32 ~a:0x40000000 () in
+    let p, r =
+      let p = a * b in
+      if p > 0xFFFFFFFF then (p land 0xFFFFFFFF, true) else (p, false)
+    in
+    let tst = Printf.sprintf "a %08X b %08X p %08X r %b" a b p r in
+    Alcotest.(check (pair uint32 bool) ("mul works " ^ tst) (Uint32.of_int p, r)
+                Uint32.(mul (of_int a) (of_int b)))
+  done
+
+let mul_int_overflow () =
+  Alcotest.(check (pair uint32 bool) "mul 0xFFFFFFFF 2 wraps"
+              (0xFFFFFFFEl, true)
+              Uint32.(mul (of_int 0xFFFFFFFF) 2l)) ;
+  Alcotest.(check (pair uint32 bool) "mul 0x3FFFFFFF 2 no wrap"
+              (0x7FFFFFFEl, false)
+              Uint32.(mul (of_int 0x3FFFFFFF) 2l)) ;
+  Alcotest.(check (pair uint32 bool) "mul 0x3FFFFFFF 4 no wrap"
+              (0xFFFFFFFCl, false)
+              Uint32.(mul (of_int 0x3FFFFFFF) 4l)) ;
+  Alcotest.(check (pair uint32 bool) "mul 0x7FFFFFFF 2 no wrap"
+              (0xFFFFFFFEl, false)
+              Uint32.(mul (of_int 0x7FFFFFFF) 2l)) ;
+  Alcotest.(check (pair uint32 bool) "mul 0x80000000 2 wrap"
+              (0l, true)
+              Uint32.(mul (of_int 0x80000000) 2l)) ;
+  Alcotest.(check (pair uint32 bool) "mul 0x40000000 4 wrap"
+              (0l, true)
+              Uint32.(mul (of_int 0x40000000) 4l)) ;
+  Alcotest.(check (pair uint32 bool) "mul 0x40000000 2 no wrap"
+              (0x80000000l, false)
+              Uint32.(mul (of_int 0x40000000) 2l))
+
+let sub_ints () =
   for _i = 0 to 1000 do
     let a = r32 () in
     let b = r32 ~a () in
@@ -121,9 +157,11 @@ let basic_tests = [
   "random of_int", `Slow, of_int_r ;
   "bounds of_int", `Quick, int_bound ;
   "to/of_int", `Slow, to_of_int ;
-  "add_ints", `Slow, add_ints ;
+  "add", `Slow, add_ints ;
   "add overflows", `Quick, add_int_overflow ;
-  "sub_ints", `Slow, sub_int ;
+  "mul", `Slow, mul_ints ;
+  "mul overflows", `Quick, mul_int_overflow ;
+  "sub", `Slow, sub_ints ;
   "sub underflows", `Quick, sub_int_underflow ;
   "compare works", `Quick, compare_works ;
   "succ/pred works", `Quick, succ_pred_at_bound

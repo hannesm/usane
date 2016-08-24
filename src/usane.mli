@@ -44,6 +44,11 @@ module Uint32 : sig
       [false]. *)
   val add : t -> t -> t * bool
 
+  (** [mul t t'] is [(r, carry)], where [r] is [t * t' mod (2 ^ 32 - 1)].  If
+      the product does not fit into 32 bits, [carry] is [true], otherwise it is
+      [false]. *)
+  val mul : t -> t -> t * bool
+
   (** [sub t t'] is [(r, carry)], where [r] is [t - t' mod (2 ^ 32 - 1)].  If
       [t] is smaller than [t'], [carry] is [true], otherwise it is [false]. *)
   val sub : t -> t -> t * bool

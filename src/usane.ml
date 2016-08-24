@@ -2,9 +2,6 @@ module Uint32 = struct
 
   type t = int32
 
-  external add_overflow : t -> t -> t * bool = "caml_uint32_add_overflow"
-  external sub_underflow : t -> t -> t * bool = "caml_uint32_sub_underflow"
-
   let pp ppf t = Format.fprintf ppf "0x%08lX" t
 
   let of_int i =
@@ -23,9 +20,9 @@ module Uint32 = struct
     else
       Some (Int32.to_int t)
 
-  let add a b = add_overflow a b
-
-  let sub a b = sub_underflow a b
+  external add : t -> t -> t * bool = "caml_uint32_add_overflow"
+  external mul : t -> t -> t * bool = "caml_uint32_mul_overflow"
+  external sub : t -> t -> t * bool = "caml_uint32_sub_underflow"
 
   let pred t = sub t 1l
 
