@@ -26,15 +26,14 @@ Sane unsigned integers.
 <p>
 
     It is designed for network protocols where sequence numbers are used (and
-    either wrapping around is accepted or should lead to re-establishing or
-    re-keying of the connection).  Most protocols only use simple arithmetic
-    operations, such as a comparison and incrementing by one.
+    either overflows are accepted or should lead to re-establishing or re-keying
+    of the connection).  Most protocols only use simple arithmetic operations,
+    such as a comparison and incrementing by one.
 <p>
 
     To ease interoperation with other libraries, the representation is the same
     width signed representation provided by OCaml, if present (which is the case
-    for <code class="code">int32</code> and <code class="code">int64</code>).  Watch out to avoid <code class="code"><span class="constructor">Int32</span></code> and <code class="code"><span class="constructor">Int64</span></code> operations
-    which wrap around silently.
+    for <code class="code">int32</code> and <code class="code">int64</code>).
 <p>
 
     The implementation of <code class="code">usane</code> uses C compiler builtins
@@ -42,7 +41,7 @@ Sane unsigned integers.
     3.4.
 <p>
 
-    <em>4e341c9 - <a href="https://github.com/hannesm/usane ">homepage</a></em><br>
+    <em>7ae0d47 - <a href="https://github.com/hannesm/usane ">homepage</a></em><br>
 </div>
 <hr width="100%">
 
