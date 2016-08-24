@@ -47,16 +47,16 @@ let add_ints () =
   done
 
 let add_int_overflow () =
-  Alcotest.(check (pair uint32 bool) "add 0xFFFFFFFF 1 wraps"
+  Alcotest.(check (pair uint32 bool) "add 0xFFFFFFFF 1 overflows"
               (0l, true)
               Uint32.(add (of_int 0xFFFFFFFF) 1l)) ;
-  Alcotest.(check (pair uint32 bool) "succ 0xFFFFFFFF wraps"
+  Alcotest.(check (pair uint32 bool) "succ 0xFFFFFFFF overflows"
               (0l, true)
               Uint32.(succ (of_int 0xFFFFFFFF))) ;
-  Alcotest.(check (pair uint32 bool) "add 0x800000000 0x80000000 wraps"
+  Alcotest.(check (pair uint32 bool) "add 0x800000000 0x80000000 overflows"
               (0l, true)
               Uint32.(add (of_int 0x80000000) (of_int 0x80000000))) ;
-  Alcotest.(check (pair uint32 bool) "add 0x800000000 0x7FFFFFFF is good"
+  Alcotest.(check (pair uint32 bool) "add 0x800000000 0x7FFFFFFF no overflow"
               (0xFFFFFFFFl, false)
               Uint32.(add (of_int 0x80000000) (of_int 0x7FFFFFFF)))
 
@@ -68,31 +68,30 @@ let mul_ints () =
       let p = a * b in
       if p > 0xFFFFFFFF then (p land 0xFFFFFFFF, true) else (p, false)
     in
-    let tst = Printf.sprintf "a %08X b %08X p %08X r %b" a b p r in
-    Alcotest.(check (pair uint32 bool) ("mul works " ^ tst) (Uint32.of_int p, r)
+    Alcotest.(check (pair uint32 bool) "mul works" (Uint32.of_int p, r)
                 Uint32.(mul (of_int a) (of_int b)))
   done
 
 let mul_int_overflow () =
-  Alcotest.(check (pair uint32 bool) "mul 0xFFFFFFFF 2 wraps"
+  Alcotest.(check (pair uint32 bool) "mul 0xFFFFFFFF 2 overflows"
               (0xFFFFFFFEl, true)
               Uint32.(mul (of_int 0xFFFFFFFF) 2l)) ;
-  Alcotest.(check (pair uint32 bool) "mul 0x3FFFFFFF 2 no wrap"
+  Alcotest.(check (pair uint32 bool) "mul 0x3FFFFFFF 2 no overflow"
               (0x7FFFFFFEl, false)
               Uint32.(mul (of_int 0x3FFFFFFF) 2l)) ;
-  Alcotest.(check (pair uint32 bool) "mul 0x3FFFFFFF 4 no wrap"
+  Alcotest.(check (pair uint32 bool) "mul 0x3FFFFFFF 4 no overflow"
               (0xFFFFFFFCl, false)
               Uint32.(mul (of_int 0x3FFFFFFF) 4l)) ;
-  Alcotest.(check (pair uint32 bool) "mul 0x7FFFFFFF 2 no wrap"
+  Alcotest.(check (pair uint32 bool) "mul 0x7FFFFFFF 2 no overflow"
               (0xFFFFFFFEl, false)
               Uint32.(mul (of_int 0x7FFFFFFF) 2l)) ;
-  Alcotest.(check (pair uint32 bool) "mul 0x80000000 2 wrap"
+  Alcotest.(check (pair uint32 bool) "mul 0x80000000 2 overflows"
               (0l, true)
               Uint32.(mul (of_int 0x80000000) 2l)) ;
-  Alcotest.(check (pair uint32 bool) "mul 0x40000000 4 wrap"
+  Alcotest.(check (pair uint32 bool) "mul 0x40000000 4 overflows"
               (0l, true)
               Uint32.(mul (of_int 0x40000000) 4l)) ;
-  Alcotest.(check (pair uint32 bool) "mul 0x40000000 2 no wrap"
+  Alcotest.(check (pair uint32 bool) "mul 0x40000000 2 no overflow"
               (0x80000000l, false)
               Uint32.(mul (of_int 0x40000000) 2l))
 
@@ -106,13 +105,13 @@ let sub_ints () =
   done
 
 let sub_int_underflow () =
-  Alcotest.(check (pair uint32 bool) "sub 0 1 wraps"
+  Alcotest.(check (pair uint32 bool) "sub 0 1 underflows"
               (0xFFFFFFFFl, true)
               Uint32.(sub 0l 1l)) ;
-  Alcotest.(check (pair uint32 bool) "pred 0 wraps"
+  Alcotest.(check (pair uint32 bool) "pred 0 underflows"
               (0xFFFFFFFFl, true)
               Uint32.(pred 0l)) ;
-  Alcotest.(check (pair uint32 bool) "sub 0x800000000 0x80000001 wraps"
+  Alcotest.(check (pair uint32 bool) "sub 0x800000000 0x80000001 underflows"
               (0xFFFFFFFFl, true)
               Uint32.(sub (of_int 0x80000000) (of_int 0x80000001))) ;
   Alcotest.(check (pair uint32 bool) "sub 0x800000000 0x7FFFFFFF is 1"

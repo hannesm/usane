@@ -6,14 +6,13 @@
     and the carry bit.
 
     It is designed for network protocols where sequence numbers are used (and
-    either wrapping around is accepted or should lead to re-establishing or
-    re-keying of the connection).  Most protocols only use simple arithmetic
-    operations, such as a comparison and incrementing by one.
+    either overflows are accepted or should lead to re-establishing or re-keying
+    of the connection).  Most protocols only use simple arithmetic operations,
+    such as a comparison and incrementing by one.
 
     To ease interoperation with other libraries, the representation is the same
     width signed representation provided by OCaml, if present (which is the case
-    for [int32] and [int64]).  Watch out to avoid [Int32] and [Int64] operations
-    which wrap around silently.
+    for [int32] and [int64]).
 
     The implementation of [usane] uses C compiler builtins
     (__builtin_uadd_overflow etc.).  These are available since GCC 5.1 and Clang
