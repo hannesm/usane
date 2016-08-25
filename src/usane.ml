@@ -7,7 +7,7 @@ module Uint32 = struct
   let of_int i =
     if i < 0 then
       invalid_arg "out of range"
-    else if i > 0xFFFFFFFF then
+    else if i > 2 * Int32.(to_int max_int) + 1 then
       invalid_arg "out of range"
     else
       Int32.of_int i
