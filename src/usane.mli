@@ -66,6 +66,13 @@ module Uint32 : sig
       {- [0] if [t] and [t'] are equal,}
       {- [1] if [t] is greater than [t'].}} *)
   val compare : t -> t -> int
+
+  (** Convenience infix operators for compare,
+      equality and inequality can be used from Int32. *)
+  val ( < )  : t -> t -> bool
+  val ( <= ) : t -> t -> bool
+  val ( > )  : t -> t -> bool
+  val ( >= ) : t -> t -> bool
 end
 
 

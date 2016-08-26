@@ -33,6 +33,11 @@ module Uint32 = struct
     | _, true -> -1
     | 0l, _ -> 0
     | _, false -> 1
+
+  let ( <  ) a b = compare a b < 0
+  let ( <= ) a b = compare a b <= 0
+  let ( >  ) a b = compare a b > 0
+  let ( >= ) a b = compare a b >= 0
 end
 
 
