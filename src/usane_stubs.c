@@ -6,8 +6,6 @@
 #include <caml/fail.h>
 #include <caml/mlvalues.h>
 
-#define Uint32_val(v) (*((uint32_t *) Data_custom_val(v)))
-
 #ifdef __clang__
 #if !  __has_builtin(__builtin_uadd_overflow)
 #define NEED 1
@@ -52,10 +50,12 @@
 })
 
 #else
-#define __unsigned_add_overflow __builtin_uadd_overflow
-#define __unsigned_mul_overflow __builtin_umul_overflow
-#define __unsigned_sub_overflow __builtin_usub_overflow
+#define __unsigned_add_overflow __builtin_add_overflow
+#define __unsigned_mul_overflow __builtin_mul_overflow
+#define __unsigned_sub_overflow __builtin_sub_overflow
 #endif
+
+#define Uint32_val(v) (*((uint32_t *) Data_custom_val(v)))
 
 CAMLprim value
 caml_uint32_add_overflow (value a, value b) {
@@ -98,6 +98,54 @@ caml_uint32_sub_underflow (value a, value b) {
   CAMLlocal1(res);
   res = caml_alloc_tuple(2);
   Store_field(res, 0, caml_copy_int32(uc));
+  Store_field(res, 1, Val_bool(carry));
+  CAMLreturn(res);
+}
+
+
+#define Uint64_val(v) (*((uint64_t *) Data_custom_val(v)))
+
+CAMLprim value
+caml_uint64_add_overflow (value a, value b) {
+  uint64_t ua, ub, uc;
+  bool carry;
+  CAMLparam2(a, b);
+  ua = Uint64_val(a);
+  ub = Uint64_val(b);
+  carry = __unsigned_add_overflow(ua, ub, &uc);
+  CAMLlocal1(res);
+  res = caml_alloc_tuple(2);
+  Store_field(res, 0, caml_copy_int64(uc));
+  Store_field(res, 1, Val_bool(carry));
+  CAMLreturn(res);
+}
+
+CAMLprim value
+caml_uint64_mul_overflow (value a, value b) {
+  uint64_t ua, ub, uc;
+  bool carry;
+  CAMLparam2(a, b);
+  ua = Uint64_val(a);
+  ub = Uint64_val(b);
+  carry = __unsigned_mul_overflow(ua, ub, &uc);
+  CAMLlocal1(res);
+  res = caml_alloc_tuple(2);
+  Store_field(res, 0, caml_copy_int64(uc));
+  Store_field(res, 1, Val_bool(carry));
+  CAMLreturn(res);
+}
+
+CAMLprim value
+caml_uint64_sub_underflow (value a, value b) {
+  uint64_t ua, ub, uc;
+  bool carry;
+  CAMLparam2(a, b);
+  ua = Uint64_val(a);
+  ub = Uint64_val(b);
+  carry = __unsigned_sub_overflow(ua, ub, &uc);
+  CAMLlocal1(res);
+  res = caml_alloc_tuple(2);
+  Store_field(res, 0, caml_copy_int64(uc));
   Store_field(res, 1, Val_bool(carry));
   CAMLreturn(res);
 }

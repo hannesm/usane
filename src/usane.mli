@@ -88,3 +88,72 @@ module Uint32 : sig
   (** Convenience infix operator for [a >= b] using {!compare}. *)
   val ( >= ) : t -> t -> bool
 end
+
+(** Unsigned 64 bit integers, ranging from 0 to 2 ^ 64 - 1 (18446744073709551615). *)
+module Uint64 : sig
+
+  (** Type of an unsigned 64 bit integer.  It is represented as an [int64]*)
+  type t = int64
+
+  (** [pp ppf u] prints the unsigned 64bit integer in hex encoding. *)
+  val pp : Format.formatter -> t -> unit
+
+  (** [of_int i] is the integer [i] converted to an unsigned 64 bit integer.
+      @raise Invalid_argument if the integer is out of range. *)
+  val of_int : int -> t
+
+  (** [to_int t] is the integer representation of [t], encapsulated in [Some].
+      If the value [t] does not fit on the host system (if it is 64 bit or
+      smaller), it is [None]. *)
+  val to_int : t -> int option
+
+  (** [add t t'] is [(r, carry)], where [r] is [t + t' mod (2 ^ 64 - 1)].  If
+      the sum does not fit into 64 bits, [carry] is [true], otherwise it is
+      [false]. *)
+  val add : t -> t -> t * bool
+
+  (** [mul t t'] is [(r, carry)], where [r] is [t * t' mod (2 ^ 64 - 1)].  If
+      the product does not fit into 64 bits, [carry] is [true], otherwise it is
+      [false]. *)
+  val mul : t -> t -> t * bool
+
+  (** [sub t t'] is [(r, carry)], where [r] is [t - t' mod (2 ^ 64 - 1)].  If
+      [t] is smaller than [t'], [carry] is [true], otherwise it is [false]. *)
+  val sub : t -> t -> t * bool
+
+  (** [succ t] is the successor of [t]: {!add} [t 1l].  If [t] is [2 ^ 64 - 1],
+      [carry] is [true], otherwise it is [false]. *)
+  val succ : t -> t * bool
+
+  (** [pred t] is the predecessor of [t]: {!sub} [t 1l].  If [t] is [0], [carry]
+      is [true], otherwise it is [false]. *)
+  val pred : t -> t * bool
+
+  (** [compare t t'] is
+      {ul
+      {- [-1] if [t] is smaller than [t'],}
+      {- [0] if [t] and [t'] are equal,}
+      {- [1] if [t] is greater than [t'].}} *)
+  val compare : t -> t -> int
+
+  (** Convenience infix operator for {!add}. *)
+  val ( + ) : t -> t -> t * bool
+
+  (** Convenience infix operator for {!sub}. *)
+  val ( - ) : t -> t -> t * bool
+
+  (** Convenience infix operator for {!mul}. *)
+  val ( * ) : t -> t -> t * bool
+
+  (** Convenience infix operator for [a < b] using {!compare}. *)
+  val ( < )  : t -> t -> bool
+
+  (** Convenience infix operator for [a <= b] using {!compare}. *)
+  val ( <= ) : t -> t -> bool
+
+  (** Convenience infix operator for [a > b] using {!compare}. *)
+  val ( > )  : t -> t -> bool
+
+  (** Convenience infix operator for [a >= b] using {!compare}. *)
+  val ( >= ) : t -> t -> bool
+end
