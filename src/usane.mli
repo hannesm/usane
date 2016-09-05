@@ -15,8 +15,8 @@
     for [int32] and [int64]).
 
     The implementation of [usane] uses C compiler builtins
-    (__builtin_uadd_overflow etc.).  These are available since GCC 5.1 and Clang
-    3.4.
+    ([__builtin_uadd_overflow] etc.).  These are available since GCC 5.1 and
+    Clang 3.4.
 
     {e %%VERSION%% - {{:%%PKG_HOMEPAGE%% }homepage}} *)
 
@@ -52,11 +52,11 @@ module Uint32 : sig
       [t] is smaller than [t'], [carry] is [true], otherwise it is [false]. *)
   val sub : t -> t -> t * bool
 
-  (** [succ t] is the successor of [t]: [add t 1l].  If [t] is [2 ^ 32 - 1],
+  (** [succ t] is the successor of [t]: {!add} [t 1l].  If [t] is [2 ^ 32 - 1],
       [carry] is [true], otherwise it is [false]. *)
   val succ : t -> t * bool
 
-  (** [pred t] is the predecessor of [t]: [sub t 1l].  If [t] is [0], [carry]
+  (** [pred t] is the predecessor of [t]: {!sub} [t 1l].  If [t] is [0], [carry]
       is [true], otherwise it is [false]. *)
   val pred : t -> t * bool
 
@@ -67,24 +67,24 @@ module Uint32 : sig
       {- [1] if [t] is greater than [t'].}} *)
   val compare : t -> t -> int
 
-  (** Convenience infix operator for [!add]. *)
+  (** Convenience infix operator for {!add}. *)
   val ( + ) : t -> t -> t * bool
 
-  (** Convenience infix operator for [!sub]. *)
+  (** Convenience infix operator for {!sub}. *)
   val ( - ) : t -> t -> t * bool
 
-  (** Convenience infix operator for [!mul]. *)
+  (** Convenience infix operator for {!mul}. *)
   val ( * ) : t -> t -> t * bool
 
-  (** Convenience infix operator for [a < b] using [!compare]. *)
+  (** Convenience infix operator for [a < b] using {!compare}. *)
   val ( < )  : t -> t -> bool
 
-  (** Convenience infix operator for [a <= b] using [!compare]. *)
+  (** Convenience infix operator for [a <= b] using {!compare}. *)
   val ( <= ) : t -> t -> bool
 
-  (** Convenience infix operator for [a > b] using [!compare]. *)
+  (** Convenience infix operator for [a > b] using {!compare}. *)
   val ( > )  : t -> t -> bool
 
-  (** Convenience infix operator for [a >= b] using [!compare]. *)
+  (** Convenience infix operator for [a >= b] using {!compare}. *)
   val ( >= ) : t -> t -> bool
 end
