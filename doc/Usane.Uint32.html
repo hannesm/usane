@@ -59,12 +59,12 @@ Type of an unsigned 32 bit integer.  It is represented as an <code class="code">
 </div>
 
 <pre><span id="VALsucc"><span class="keyword">val</span> succ</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">succ t</code> is the successor of <code class="code">t</code>: <code class="code">add t 1l</code>.  If <code class="code">t</code> is <code class="code">2 ^ 32 - 1</code>,
+<code class="code">succ t</code> is the successor of <code class="code">t</code>: <a href="Usane.Uint32.html#VALadd"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint32</span>.add</code></a> <code class="code">t 1l</code>.  If <code class="code">t</code> is <code class="code">2 ^ 32 - 1</code>,
       <code class="code">carry</code> is <code class="code"><span class="keyword">true</span></code>, otherwise it is <code class="code"><span class="keyword">false</span></code>.<br>
 </div>
 
 <pre><span id="VALpred"><span class="keyword">val</span> pred</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-<code class="code">pred t</code> is the predecessor of <code class="code">t</code>: <code class="code">sub t 1l</code>.  If <code class="code">t</code> is <code class="code">0</code>, <code class="code">carry</code>
+<code class="code">pred t</code> is the predecessor of <code class="code">t</code>: <a href="Usane.Uint32.html#VALsub"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint32</span>.sub</code></a> <code class="code">t 1l</code>.  If <code class="code">t</code> is <code class="code">0</code>, <code class="code">carry</code>
       is <code class="code"><span class="keyword">true</span></code>, otherwise it is <code class="code"><span class="keyword">false</span></code>.<br>
 </div>
 
@@ -79,30 +79,30 @@ Type of an unsigned 32 bit integer.  It is represented as an <code class="code">
 </div>
 
 <pre><span id="VAL(+)"><span class="keyword">val</span> (+)</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-Convenience infix operator for <code class="code">!add</code>.<br>
+Convenience infix operator for <a href="Usane.Uint32.html#VALadd"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint32</span>.add</code></a>.<br>
 </div>
 
 <pre><span id="VAL(-)"><span class="keyword">val</span> (-)</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-Convenience infix operator for <code class="code">!sub</code>.<br>
+Convenience infix operator for <a href="Usane.Uint32.html#VALsub"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint32</span>.sub</code></a>.<br>
 </div>
 
 <pre><span id="VAL( * )"><span class="keyword">val</span> ( * )</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> * bool</code></pre><div class="info ">
-Convenience infix operator for <code class="code">!mul</code>.<br>
+Convenience infix operator for <a href="Usane.Uint32.html#VALmul"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint32</span>.mul</code></a>.<br>
 </div>
 
 <pre><span id="VAL(<)"><span class="keyword">val</span> (&lt;)</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
-Convenience infix operator for <code class="code">a &lt; b</code> using <code class="code">!compare</code>.<br>
+Convenience infix operator for <code class="code">a &lt; b</code> using <a href="Usane.Uint32.html#VALcompare"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint32</span>.compare</code></a>.<br>
 </div>
 
 <pre><span id="VAL(<=)"><span class="keyword">val</span> (&lt;=)</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
-Convenience infix operator for <code class="code">a &lt;= b</code> using <code class="code">!compare</code>.<br>
+Convenience infix operator for <code class="code">a &lt;= b</code> using <a href="Usane.Uint32.html#VALcompare"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint32</span>.compare</code></a>.<br>
 </div>
 
 <pre><span id="VAL(>)"><span class="keyword">val</span> (&gt;)</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
-Convenience infix operator for <code class="code">a &gt; b</code> using <code class="code">!compare</code>.<br>
+Convenience infix operator for <code class="code">a &gt; b</code> using <a href="Usane.Uint32.html#VALcompare"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint32</span>.compare</code></a>.<br>
 </div>
 
 <pre><span id="VAL(>=)"><span class="keyword">val</span> (&gt;=)</span> : <code class="type"><a href="Usane.Uint32.html#TYPEt">t</a> -> <a href="Usane.Uint32.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
-Convenience infix operator for <code class="code">a &gt;= b</code> using <code class="code">!compare</code>.<br>
+Convenience infix operator for <code class="code">a &gt;= b</code> using <a href="Usane.Uint32.html#VALcompare"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint32</span>.compare</code></a>.<br>
 </div>
 </body></html>
