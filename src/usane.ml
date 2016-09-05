@@ -28,6 +28,10 @@ module Uint32 = struct
 
   let succ t = add t 1l
 
+  let ( + ) = add
+  let ( - ) = sub
+  let ( * ) = mul
+
   let compare a b =
     match sub a b with
     | _, true -> -1
@@ -39,5 +43,3 @@ module Uint32 = struct
   let ( >  ) a b = compare a b > 0
   let ( >= ) a b = compare a b >= 0
 end
-
-

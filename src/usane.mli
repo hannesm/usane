@@ -67,12 +67,24 @@ module Uint32 : sig
       {- [1] if [t] is greater than [t'].}} *)
   val compare : t -> t -> int
 
-  (** Convenience infix operators for compare,
-      equality and inequality can be used from Int32. *)
+  (** Convenience infix operator for [!add]. *)
+  val ( + ) : t -> t -> t * bool
+
+  (** Convenience infix operator for [!sub]. *)
+  val ( - ) : t -> t -> t * bool
+
+  (** Convenience infix operator for [!mul]. *)
+  val ( * ) : t -> t -> t * bool
+
+  (** Convenience infix operator for [a < b] using [!compare]. *)
   val ( < )  : t -> t -> bool
+
+  (** Convenience infix operator for [a <= b] using [!compare]. *)
   val ( <= ) : t -> t -> bool
+
+  (** Convenience infix operator for [a > b] using [!compare]. *)
   val ( > )  : t -> t -> bool
+
+  (** Convenience infix operator for [a >= b] using [!compare]. *)
   val ( >= ) : t -> t -> bool
 end
-
-
