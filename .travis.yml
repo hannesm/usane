@@ -3,9 +3,12 @@ install: wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.t
 script: bash -ex .travis-opam.sh
 sudo: required
 env:
-  - PACKAGE="usane" OCAML_VERSION=4.04
-  - PACKAGE="usane" OCAML_VERSION=4.03
-  - PACKAGE="usane" OCAML_VERSION=4.02
-  - PACKAGE="usane" OCAML_VERSION=4.01
+  global:
+    - PACKAGE="usane"
+  matrix:
+    - OCAML_VERSION=4.04
+    - OCAML_VERSION=4.03
+    - OCAML_VERSION=4.02
+    - OCAML_VERSION=4.01
 notifications:
   email: false
