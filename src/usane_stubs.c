@@ -55,97 +55,33 @@
 #define __unsigned_sub_overflow __builtin_sub_overflow
 #endif
 
+#define op(t, n, x, c, f) \
+  CAMLprim value                                         \
+  caml_ ## n ## _ ## f ## _overflow (value a, value b) { \
+    t ua, ub, uc;                                        \
+    bool carry;                                          \
+    CAMLparam2(a, b);                                    \
+    ua = x(a);                                           \
+    ub = x(b);                                           \
+    carry = __unsigned_ ## f ## _overflow (ua, ub, &uc); \
+    CAMLlocal1(res);                                     \
+    res = caml_alloc_tuple(2);                           \
+    Store_field(res, 0, c(uc));                          \
+    Store_field(res, 1, Val_bool(carry));                \
+    CAMLreturn(res);                                     \
+  }
+
+#define add_mul_sub(t, n, x, c) \
+  op(t, n, x, c, add)           \
+  op(t, n, x, c, mul)           \
+  op(t, n, x, c, sub)
+
+add_mul_sub(uint8_t, _uint8, Int_val, Val_int)
+
+add_mul_sub(uint16_t, _uint16, Int_val, Val_int)
+
 #define Uint32_val(v) (*((uint32_t *) Data_custom_val(v)))
-
-CAMLprim value
-caml_uint32_add_overflow (value a, value b) {
-  uint32_t ua, ub, uc;
-  bool carry;
-  CAMLparam2(a, b);
-  ua = Uint32_val(a);
-  ub = Uint32_val(b);
-  carry = __unsigned_add_overflow(ua, ub, &uc);
-  CAMLlocal1(res);
-  res = caml_alloc_tuple(2);
-  Store_field(res, 0, caml_copy_int32(uc));
-  Store_field(res, 1, Val_bool(carry));
-  CAMLreturn(res);
-}
-
-CAMLprim value
-caml_uint32_mul_overflow (value a, value b) {
-  uint32_t ua, ub, uc;
-  bool carry;
-  CAMLparam2(a, b);
-  ua = Uint32_val(a);
-  ub = Uint32_val(b);
-  carry = __unsigned_mul_overflow(ua, ub, &uc);
-  CAMLlocal1(res);
-  res = caml_alloc_tuple(2);
-  Store_field(res, 0, caml_copy_int32(uc));
-  Store_field(res, 1, Val_bool(carry));
-  CAMLreturn(res);
-}
-
-CAMLprim value
-caml_uint32_sub_underflow (value a, value b) {
-  uint32_t ua, ub, uc;
-  bool carry;
-  CAMLparam2(a, b);
-  ua = Uint32_val(a);
-  ub = Uint32_val(b);
-  carry = __unsigned_sub_overflow(ua, ub, &uc);
-  CAMLlocal1(res);
-  res = caml_alloc_tuple(2);
-  Store_field(res, 0, caml_copy_int32(uc));
-  Store_field(res, 1, Val_bool(carry));
-  CAMLreturn(res);
-}
-
+add_mul_sub(uint32_t, uint32, Uint32_val, caml_copy_int32)
 
 #define Uint64_val(v) (*((uint64_t *) Data_custom_val(v)))
-
-CAMLprim value
-caml_uint64_add_overflow (value a, value b) {
-  uint64_t ua, ub, uc;
-  bool carry;
-  CAMLparam2(a, b);
-  ua = Uint64_val(a);
-  ub = Uint64_val(b);
-  carry = __unsigned_add_overflow(ua, ub, &uc);
-  CAMLlocal1(res);
-  res = caml_alloc_tuple(2);
-  Store_field(res, 0, caml_copy_int64(uc));
-  Store_field(res, 1, Val_bool(carry));
-  CAMLreturn(res);
-}
-
-CAMLprim value
-caml_uint64_mul_overflow (value a, value b) {
-  uint64_t ua, ub, uc;
-  bool carry;
-  CAMLparam2(a, b);
-  ua = Uint64_val(a);
-  ub = Uint64_val(b);
-  carry = __unsigned_mul_overflow(ua, ub, &uc);
-  CAMLlocal1(res);
-  res = caml_alloc_tuple(2);
-  Store_field(res, 0, caml_copy_int64(uc));
-  Store_field(res, 1, Val_bool(carry));
-  CAMLreturn(res);
-}
-
-CAMLprim value
-caml_uint64_sub_underflow (value a, value b) {
-  uint64_t ua, ub, uc;
-  bool carry;
-  CAMLparam2(a, b);
-  ua = Uint64_val(a);
-  ub = Uint64_val(b);
-  carry = __unsigned_sub_overflow(ua, ub, &uc);
-  CAMLlocal1(res);
-  res = caml_alloc_tuple(2);
-  Store_field(res, 0, caml_copy_int64(uc));
-  Store_field(res, 1, Val_bool(carry));
-  CAMLreturn(res);
-}
+add_mul_sub(uint64_t, uint64, Uint64_val, caml_copy_int64)
