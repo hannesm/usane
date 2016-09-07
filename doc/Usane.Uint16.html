@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Usane.Uint8.html">
+<link rel="next" href="Usane.Uint32.html">
+<link rel="Up" href="Usane.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Usane" rel="Chapter" href="Usane.html"><title>Usane.Uint16</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Usane.Uint8.html" title="Usane.Uint8">Previous</a>
+&nbsp;<a class="up" href="Usane.html" title="Usane">Up</a>
+&nbsp;<a class="post" href="Usane.Uint32.html" title="Usane.Uint32">Next</a>
+</div>
+<h1>Module <a href="type_Usane.Uint16.html">Usane.Uint16</a></h1>
+
+<pre><span class="keyword">module</span> Uint16: <code class="code"><span class="keyword">sig</span></code> <a href="Usane.Uint16.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+Unsigned 16 bit integers, ranging from 0 to 2 ^ 16 - 1 (65535).<br>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = <code class="type">int</code> </pre>
+<div class="info ">
+Type of an unsigned 16 bit integer.  It is represented as an <code class="code">int</code><br>
+</div>
+
+
+<pre><span id="VALpp"><span class="keyword">val</span> pp</span> : <code class="type">Format.formatter -> <a href="Usane.Uint16.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<code class="code">pp ppf u</code> prints the unsigned 16bit integer in hex encoding.<br>
+</div>
+
+<pre><span id="VALof_int"><span class="keyword">val</span> of_int</span> : <code class="type">int -> <a href="Usane.Uint16.html#TYPEt">t</a></code></pre><div class="info ">
+<code class="code">of_int i</code> is the integer <code class="code">i</code> converted to an unsigned 16 bit integer.<br>
+<b>Raises</b> <code>Invalid_argument</code> if the integer is out of range.<br>
+</div>
+
+<pre><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+<code class="code">add t t'</code> is <code class="code">(r, carry)</code>, where <code class="code">r</code> is <code class="code">t + t' <span class="keyword">mod</span> (2 ^ 16 - 1)</code>.  If
+      the sum does not fit into 16 bits, <code class="code">carry</code> is <code class="code"><span class="keyword">true</span></code>, otherwise it is
+      <code class="code"><span class="keyword">false</span></code>.<br>
+</div>
+
+<pre><span id="VALmul"><span class="keyword">val</span> mul</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+<code class="code">mul t t'</code> is <code class="code">(r, carry)</code>, where <code class="code">r</code> is <code class="code">t * t' <span class="keyword">mod</span> (2 ^ 16 - 1)</code>.  If
+      the product does not fit into 16 bits, <code class="code">carry</code> is <code class="code"><span class="keyword">true</span></code>, otherwise it is
+      <code class="code"><span class="keyword">false</span></code>.<br>
+</div>
+
+<pre><span id="VALsub"><span class="keyword">val</span> sub</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+<code class="code">sub t t'</code> is <code class="code">(r, carry)</code>, where <code class="code">r</code> is <code class="code">t - t' <span class="keyword">mod</span> (2 ^ 16 - 1)</code>.  If
+      <code class="code">t</code> is smaller than <code class="code">t'</code>, <code class="code">carry</code> is <code class="code"><span class="keyword">true</span></code>, otherwise it is <code class="code"><span class="keyword">false</span></code>.<br>
+</div>
+
+<pre><span id="VALsucc"><span class="keyword">val</span> succ</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+<code class="code">succ t</code> is the successor of <code class="code">t</code>: <a href="Usane.Uint16.html#VALadd"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint16</span>.add</code></a> <code class="code">t 1l</code>.  If <code class="code">t</code> is <code class="code">2 ^ 16 - 1</code>,
+      <code class="code">carry</code> is <code class="code"><span class="keyword">true</span></code>, otherwise it is <code class="code"><span class="keyword">false</span></code>.<br>
+</div>
+
+<pre><span id="VALpred"><span class="keyword">val</span> pred</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+<code class="code">pred t</code> is the predecessor of <code class="code">t</code>: <a href="Usane.Uint16.html#VALsub"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint16</span>.sub</code></a> <code class="code">t 1l</code>.  If <code class="code">t</code> is <code class="code">0</code>, <code class="code">carry</code>
+      is <code class="code"><span class="keyword">true</span></code>, otherwise it is <code class="code"><span class="keyword">false</span></code>.<br>
+</div>
+
+<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<code class="code">compare t t'</code> is
+      <ul>
+<li><code class="code">-1</code> if <code class="code">t</code> is smaller than <code class="code">t'</code>,</li>
+<li><code class="code">0</code> if <code class="code">t</code> and <code class="code">t'</code> are equal,</li>
+<li><code class="code">1</code> if <code class="code">t</code> is greater than <code class="code">t'</code>.</li>
+</ul>
+<br>
+</div>
+
+<pre><span id="VAL(+)"><span class="keyword">val</span> (+)</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+Convenience infix operator for <a href="Usane.Uint16.html#VALadd"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint16</span>.add</code></a>.<br>
+</div>
+
+<pre><span id="VAL(-)"><span class="keyword">val</span> (-)</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+Convenience infix operator for <a href="Usane.Uint16.html#VALsub"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint16</span>.sub</code></a>.<br>
+</div>
+
+<pre><span id="VAL( * )"><span class="keyword">val</span> ( * )</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> * bool</code></pre><div class="info ">
+Convenience infix operator for <a href="Usane.Uint16.html#VALmul"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint16</span>.mul</code></a>.<br>
+</div>
+
+<pre><span id="VAL(<)"><span class="keyword">val</span> (&lt;)</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+Convenience infix operator for <code class="code">a &lt; b</code> using <a href="Usane.Uint16.html#VALcompare"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint16</span>.compare</code></a>.<br>
+</div>
+
+<pre><span id="VAL(<=)"><span class="keyword">val</span> (&lt;=)</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+Convenience infix operator for <code class="code">a &lt;= b</code> using <a href="Usane.Uint16.html#VALcompare"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint16</span>.compare</code></a>.<br>
+</div>
+
+<pre><span id="VAL(>)"><span class="keyword">val</span> (&gt;)</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+Convenience infix operator for <code class="code">a &gt; b</code> using <a href="Usane.Uint16.html#VALcompare"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint16</span>.compare</code></a>.<br>
+</div>
+
+<pre><span id="VAL(>=)"><span class="keyword">val</span> (&gt;=)</span> : <code class="type"><a href="Usane.Uint16.html#TYPEt">t</a> -> <a href="Usane.Uint16.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+Convenience infix operator for <code class="code">a &gt;= b</code> using <a href="Usane.Uint16.html#VALcompare"><code class="code"><span class="constructor">Usane</span>.<span class="constructor">Uint16</span>.compare</code></a>.<br>
+</div>
+</body></html>
