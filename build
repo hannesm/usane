@@ -13,6 +13,13 @@ action ()
         default) action lib ;;
         lib) $OCAMLBUILD -I src usane.cma usane.cmxa ;;
         test) action lib ; $OCAMLBUILD test/test.native ; ./test.native ;;
+        coverage)
+            action clean ;
+            export OCAMLBUILD="$OCAMLBUILD -pkg bisect_ppx" ;
+            action lib ;
+            $OCAMLBUILD test/test.native ;
+            ./test.native ;
+            bisect-ppx-report -I _build/ -html coverage/ bisect0001.out ;;
         clean) $OCAMLBUILD -clean ; rm -rf _tests ;;
         *) $OCAMLBUILD $* ;;
     esac
