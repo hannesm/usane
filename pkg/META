@@ -1,5 +1,5 @@
 description = "Unsigned integer for OCaml"
-version = "%%VERSION%%"
+version = "%%VERSION_NUM%%"
 requires = ""
 archive(byte) = "usane.cma"
 archive(native) = "usane.cmxa"
