@@ -1,8 +1,8 @@
-true : bin_annot, safe_string, principal
-true : warn(+A-4-6-44-48-58)
+true : color(always), bin_annot, safe_string, principal
+true : warn(+A-44)
 
 <src/usane.{cma,cmxa}> : use_usane
 <src/usane.cmxs> : link_usane
 
 "src" : include
-<test/test.{ml,byte,native}> : custom, link_usane, package(alcotest)
+<test/test.{ml,byte,native}> : link_usane, package(alcotest)
