@@ -3,3 +3,5 @@ _tests/
 *.native
 *.byte
 *.install
+coverage/
+bisect*.out
