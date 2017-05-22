@@ -19,15 +19,15 @@ module Uint8_test = struct
   let of_int_r () =
     for _i = 0 to 1000 do
       let r = r8 () in
-      Alcotest.check uint8 "random" r (Uint8.of_int r)
+      Alcotest.(check int) "random" r (Uint8.of_int r :> int)
     done
 
   let int_bound () =
-    Alcotest.check uint8 "int 0 ok" 0 (Uint8.of_int 0) ;
+    Alcotest.(check int) "int 0 ok" 0 (Uint8.zero :> int) ;
     Alcotest.check_raises "smaller 0 raises"
       (Invalid_argument "out of range")
       (fun () -> ignore (Uint8.of_int (-1))) ;
-    Alcotest.check uint8 "int 2 ^ 8 - 1 ok" 0xFF (Uint8.of_int 0xFF) ;
+    Alcotest.(check int) "int 2 ^ 8 - 1 ok" 0xFF (Uint8.of_int 0xFF :> int) ;
     Alcotest.check_raises "greater 2 ^ 8 - 1 raises"
       (Invalid_argument "out of range")
       (fun () -> ignore (Uint8.of_int (0x100)))
@@ -42,16 +42,16 @@ module Uint8_test = struct
 
   let add_int_overflow () =
     Alcotest.(check (pair uint8 bool) "add 0xFF 1 overflows"
-                (0, true)
-                Uint8.(add (of_int 0xFF) 1)) ;
+                (Uint8.zero, true)
+                Uint8.(add (of_int 0xFF) (Uint8.of_int 1))) ;
     Alcotest.(check (pair uint8 bool) "succ 0xFF overflows"
-                (0, true)
+                (Uint8.zero, true)
                 Uint8.(succ (of_int 0xFF))) ;
     Alcotest.(check (pair uint8 bool) "add 0x80 0x80 overflows"
-                (0, true)
+                (Uint8.zero, true)
                 Uint8.(add (of_int 0x80) (of_int 0x80))) ;
     Alcotest.(check (pair uint8 bool) "add 0x80 0x7F no overflow"
-                (0xFF, false)
+                (Uint8.of_int 0xFF, false)
                 Uint8.(add (of_int 0x80) (of_int 0x7F)))
 
   let mul_ints () =
@@ -68,26 +68,26 @@ module Uint8_test = struct
 
   let mul_int_overflow () =
     Alcotest.(check (pair uint8 bool) "mul 0xFF 2 overflows"
-                (0xFE, true)
-                Uint8.(mul (of_int 0xFF) 2)) ;
+                (Uint8.of_int 0xFE, true)
+                Uint8.(mul (of_int 0xFF) (Uint8.of_int 2))) ;
     Alcotest.(check (pair uint8 bool) "mul 0x3F 2 no overflow"
-                (0x7E, false)
-                Uint8.(mul (of_int 0x3F) 2)) ;
+                (Uint8.of_int 0x7E, false)
+                Uint8.(mul (of_int 0x3F) (Uint8.of_int 2))) ;
     Alcotest.(check (pair uint8 bool) "mul 0x3F 4 no overflow"
-                (0xFC, false)
-                Uint8.(mul (of_int 0x3F) 4)) ;
+                (Uint8.of_int 0xFC, false)
+                Uint8.(mul (of_int 0x3F) (Uint8.of_int 4))) ;
     Alcotest.(check (pair uint8 bool) "mul 0x7F 2 no overflow"
-                (0xFE, false)
-                Uint8.(mul (of_int 0x7F) 2)) ;
+                (Uint8.of_int 0xFE, false)
+                Uint8.(mul (of_int 0x7F) (Uint8.of_int 2))) ;
     Alcotest.(check (pair uint8 bool) "mul 0x80 2 overflows"
-                (0, true)
-                Uint8.(mul (of_int 0x80) 2)) ;
+                (Uint8.zero, true)
+                Uint8.(mul (of_int 0x80) (Uint8.of_int 2))) ;
     Alcotest.(check (pair uint8 bool) "mul 0x40 4 overflows"
-                (0, true)
-                Uint8.(mul (of_int 0x40) 4)) ;
+                (Uint8.zero, true)
+                Uint8.(mul (of_int 0x40) (Uint8.of_int 4))) ;
     Alcotest.(check (pair uint8 bool) "mul 0x40 2 no overflow"
-                (0x80, false)
-                Uint8.(mul (of_int 0x40) 2))
+                (Uint8.of_int 0x80, false)
+                Uint8.(mul (of_int 0x40) (Uint8.of_int 2)))
 
   let sub_ints () =
     for _i = 0 to 1000 do
@@ -101,33 +101,33 @@ module Uint8_test = struct
 
   let sub_int_underflow () =
     Alcotest.(check (pair uint8 bool) "sub 0 1 underflows"
-                (0xFF, true)
-                Uint8.(sub 0 1)) ;
+                (Uint8.of_int 0xFF, true)
+                Uint8.(sub zero (of_int 1))) ;
     Alcotest.(check (pair uint8 bool) "pred 0 underflows"
-                (0xFF, true)
-                Uint8.(pred 0)) ;
+                (Uint8.of_int 0xFF, true)
+                Uint8.(pred zero)) ;
     Alcotest.(check (pair uint8 bool) "sub 0x80 0x81 underflows"
-                (0xFF, true)
+                (Uint8.of_int 0xFF, true)
                 Uint8.(sub (of_int 0x80) (of_int 0x81))) ;
     Alcotest.(check (pair uint8 bool) "sub 0x80 0x7F is 1"
-                (1, false)
+                (Uint8.of_int 1, false)
                 Uint8.(sub (of_int 0x80) (of_int 0x7F)))
 
   let compare_works () =
     Alcotest.check Alcotest.int "compare 0xFF 0xFF is 0"
       0 Uint8.(compare (of_int 0xFF) (of_int 0xFF)) ;
     Alcotest.check Alcotest.int "compare 0 0 is 0"
-      0 Uint8.(compare 0 0) ;
+      0 Uint8.(compare zero zero) ;
     Alcotest.check Alcotest.int "compare 1 1 is 0"
-      0 Uint8.(compare 1 1) ;
+      0 Uint8.(compare (of_int 1) (of_int 1)) ;
     Alcotest.check Alcotest.int "compare 0 1 is -1"
-      (-1) Uint8.(compare 0 1) ;
+      (-1) Uint8.(compare (of_int 0) (of_int 1)) ;
     Alcotest.check Alcotest.int "compare 1 0 is 1"
-      1 Uint8.(compare 1 0) ;
+      1 Uint8.(compare (of_int 1) (of_int 0)) ;
     Alcotest.check Alcotest.int "compare 0xFF 0 is 1"
-      1 Uint8.(compare (of_int 0xFF) 0) ;
+      1 Uint8.(compare (of_int 0xFF) zero) ;
     Alcotest.check Alcotest.int "compare 0 0xFF is -1"
-      (-1) Uint8.(compare 0 (of_int 0xFF)) ;
+      (-1) Uint8.(compare zero (of_int 0xFF)) ;
     Alcotest.check Alcotest.int "compare 0xFF 0xFE is 1"
       1 Uint8.(compare (of_int 0xFF) (of_int 0xFE)) ;
     Alcotest.check Alcotest.int "compare 0xFE 0xFF is -1"
@@ -139,13 +139,13 @@ module Uint8_test = struct
 
   let succ_pred_at_bound () =
     Alcotest.(check (pair uint8 bool) "succ 0x7F is 0x80"
-                (0x80, false) Uint8.(succ (of_int 0x7F))) ;
+                (Uint8.of_int 0x80, false) Uint8.(succ (of_int 0x7F))) ;
     Alcotest.(check (pair uint8 bool) "succ 0x80 is 0x81"
-                (0x81, false) Uint8.(succ (of_int 0x80))) ;
+                (Uint8.of_int 0x81, false) Uint8.(succ (of_int 0x80))) ;
     Alcotest.(check (pair uint8 bool) "pred 0x80 is 0x7F"
-                (0x7F, false) Uint8.(pred (of_int 0x80))) ;
+                (Uint8.of_int 0x7F, false) Uint8.(pred (of_int 0x80))) ;
     Alcotest.(check (pair uint8 bool) "pred 0x81 is 0x80"
-                (0x80, false) Uint8.(pred (of_int 0x81)))
+                (Uint8.of_int 0x80, false) Uint8.(pred (of_int 0x81)))
 
   let tests = [
     "random of_int", `Slow, of_int_r ;
@@ -180,15 +180,15 @@ module Uint16_test = struct
   let of_int_r () =
     for _i = 0 to 1000 do
       let r = r16 () in
-      Alcotest.check uint16 "random" r (Uint16.of_int r)
+      Alcotest.(check int) "random" r (Uint16.of_int r :> int)
     done
 
   let int_bound () =
-    Alcotest.check uint16 "int 0 ok" 0 (Uint16.of_int 0) ;
+    Alcotest.(check int) "int 0 ok" 0 (Uint16.zero :> int) ;
     Alcotest.check_raises "smaller 0 raises"
       (Invalid_argument "out of range")
       (fun () -> ignore (Uint16.of_int (-1))) ;
-    Alcotest.check uint16 "int 2 ^ 16 - 1 ok" 0xFFFF (Uint16.of_int 0xFFFF) ;
+    Alcotest.(check int) "int 2 ^ 16 - 1 ok" 0xFFFF (Uint16.of_int 0xFFFF :> int) ;
     Alcotest.check_raises "greater 2 ^ 16 - 1 raises"
       (Invalid_argument "out of range")
       (fun () -> ignore (Uint16.of_int (0x10000)))
@@ -203,16 +203,16 @@ module Uint16_test = struct
 
   let add_int_overflow () =
     Alcotest.(check (pair uint16 bool) "add 0xFFFF 1 overflows"
-                (0, true)
-                Uint16.(add (of_int 0xFFFF) 1)) ;
+                (Uint16.zero, true)
+                Uint16.(add (of_int 0xFFFF) (of_int 1))) ;
     Alcotest.(check (pair uint16 bool) "succ 0xFFFF overflows"
-                (0, true)
+                (Uint16.zero, true)
                 Uint16.(succ (of_int 0xFFFF))) ;
     Alcotest.(check (pair uint16 bool) "add 0x8000 0x8000 overflows"
-                (0, true)
+                (Uint16.zero, true)
                 Uint16.(add (of_int 0x8000) (of_int 0x8000))) ;
     Alcotest.(check (pair uint16 bool) "add 0x8000 0x7FFF no overflow"
-                (0xFFFF, false)
+                (Uint16.of_int 0xFFFF, false)
                 Uint16.(add (of_int 0x8000) (of_int 0x7FFF)))
 
   let mul_ints () =
@@ -229,26 +229,26 @@ module Uint16_test = struct
 
   let mul_int_overflow () =
     Alcotest.(check (pair uint16 bool) "mul 0xFFFF 2 overflows"
-                (0xFFFE, true)
-                Uint16.(mul (of_int 0xFFFF) 2)) ;
+                (Uint16.of_int 0xFFFE, true)
+                Uint16.(mul (of_int 0xFFFF) (Uint16.of_int 2))) ;
     Alcotest.(check (pair uint16 bool) "mul 0x3FFF 2 no overflow"
-                (0x7FFE, false)
-                Uint16.(mul (of_int 0x3FFF) 2)) ;
+                (Uint16.of_int 0x7FFE, false)
+                Uint16.(mul (of_int 0x3FFF) (Uint16.of_int 2))) ;
     Alcotest.(check (pair uint16 bool) "mul 0x3FFF 4 no overflow"
-                (0xFFFC, false)
-                Uint16.(mul (of_int 0x3FFF) 4)) ;
+                (Uint16.of_int 0xFFFC, false)
+                Uint16.(mul (of_int 0x3FFF) (Uint16.of_int 4))) ;
     Alcotest.(check (pair uint16 bool) "mul 0x7FFF 2 no overflow"
-                (0xFFFE, false)
-                Uint16.(mul (of_int 0x7FFF) 2)) ;
+                (Uint16.of_int 0xFFFE, false)
+                Uint16.(mul (of_int 0x7FFF) (Uint16.of_int 2))) ;
     Alcotest.(check (pair uint16 bool) "mul 0x8000 2 overflows"
-                (0, true)
-                Uint16.(mul (of_int 0x8000) 2)) ;
+                (Uint16.zero, true)
+                Uint16.(mul (of_int 0x8000) (Uint16.of_int 2))) ;
     Alcotest.(check (pair uint16 bool) "mul 0x4000 4 overflows"
-                (0, true)
-                Uint16.(mul (of_int 0x4000) 4)) ;
+                (Uint16.zero, true)
+                Uint16.(mul (of_int 0x4000) (Uint16.of_int 4))) ;
     Alcotest.(check (pair uint16 bool) "mul 0x4000 2 no overflow"
-                (0x8000, false)
-                Uint16.(mul (of_int 0x4000) 2))
+                (Uint16.of_int 0x8000, false)
+                Uint16.(mul (of_int 0x4000) (Uint16.of_int 2)))
 
   let sub_ints () =
     for _i = 0 to 1000 do
@@ -262,33 +262,33 @@ module Uint16_test = struct
 
   let sub_int_underflow () =
     Alcotest.(check (pair uint16 bool) "sub 0 1 underflows"
-                (0xFFFF, true)
-                Uint16.(sub 0 1)) ;
+                (Uint16.of_int 0xFFFF, true)
+                Uint16.(sub zero (of_int 1))) ;
     Alcotest.(check (pair uint16 bool) "pred 0 underflows"
-                (0xFFFF, true)
-                Uint16.(pred 0)) ;
+                (Uint16.of_int 0xFFFF, true)
+                Uint16.(pred zero)) ;
     Alcotest.(check (pair uint16 bool) "sub 0x8000 0x8001 underflows"
-                (0xFFFF, true)
+                (Uint16.of_int 0xFFFF, true)
                 Uint16.(sub (of_int 0x8000) (of_int 0x8001))) ;
     Alcotest.(check (pair uint16 bool) "sub 0x8000 0x7FFF is 1"
-                (1, false)
+                (Uint16.of_int 1, false)
                 Uint16.(sub (of_int 0x8000) (of_int 0x7FFF)))
 
   let compare_works () =
     Alcotest.check Alcotest.int "compare 0xFFFF 0xFFFF is 0"
       0 Uint16.(compare (of_int 0xFFFF) (of_int 0xFFFF)) ;
     Alcotest.check Alcotest.int "compare 0 0 is 0"
-      0 Uint16.(compare 0 0) ;
+      0 Uint16.(compare zero zero) ;
     Alcotest.check Alcotest.int "compare 1 1 is 0"
-      0 Uint16.(compare 1 1) ;
+      0 Uint16.(compare (of_int 1) (of_int 1)) ;
     Alcotest.check Alcotest.int "compare 0 1 is -1"
-      (-1) Uint16.(compare 0 1) ;
+      (-1) Uint16.(compare (of_int 0) (of_int 1)) ;
     Alcotest.check Alcotest.int "compare 1 0 is 1"
-      1 Uint16.(compare 1 0) ;
+      1 Uint16.(compare (of_int 1) (of_int 0)) ;
     Alcotest.check Alcotest.int "compare 0xFFFF 0 is 1"
-      1 Uint16.(compare (of_int 0xFFFF) 0) ;
+      1 Uint16.(compare (of_int 0xFFFF) zero) ;
     Alcotest.check Alcotest.int "compare 0 0xFFFF is -1"
-      (-1) Uint16.(compare 0 (of_int 0xFFFF)) ;
+      (-1) Uint16.(compare zero (of_int 0xFFFF)) ;
     Alcotest.check Alcotest.int "compare 0xFFFF 0xFFFE is 1"
       1 Uint16.(compare (of_int 0xFFFF) (of_int 0xFFFE)) ;
     Alcotest.check Alcotest.int "compare 0xFFFE 0xFFFF is -1"
@@ -300,13 +300,13 @@ module Uint16_test = struct
 
   let succ_pred_at_bound () =
     Alcotest.(check (pair uint16 bool) "succ 0x7FFF is 0x8000"
-                (0x8000, false) Uint16.(succ (of_int 0x7FFF))) ;
+                (Uint16.of_int 0x8000, false) Uint16.(succ (of_int 0x7FFF))) ;
     Alcotest.(check (pair uint16 bool) "succ 0x8000 is 0x8001"
-                (0x8001, false) Uint16.(succ (of_int 0x8000))) ;
+                (Uint16.of_int 0x8001, false) Uint16.(succ (of_int 0x8000))) ;
     Alcotest.(check (pair uint16 bool) "pred 0x8000 is 0x7FFF"
-                (0x7FFF, false) Uint16.(pred (of_int 0x8000))) ;
+                (Uint16.of_int 0x7FFF, false) Uint16.(pred (of_int 0x8000))) ;
     Alcotest.(check (pair uint16 bool) "pred 0x8001 is 0x8000"
-                (0x8000, false) Uint16.(pred (of_int 0x8001)))
+                (Uint16.of_int 0x8000, false) Uint16.(pred (of_int 0x8001)))
 
   let tests = [
     "random of_int", `Slow, of_int_r ;
@@ -345,7 +345,7 @@ module Uint32_test = struct
     done
 
   let int_bound () =
-    Alcotest.check uint32 "int 0 ok" 0l (Uint32.of_int 0) ;
+    Alcotest.check uint32 "int 0 ok" 0l Uint32.zero ;
     Alcotest.check_raises "smaller 0 raises"
       (Invalid_argument "out of range")
       (fun () -> ignore (Uint32.of_int (-1))) ;
@@ -514,7 +514,7 @@ module Uint64_test = struct
     done
 
   let int_bound () =
-    Alcotest.check uint64 "int 0 ok" 0L (Uint64.of_int 0) ;
+    Alcotest.check uint64 "int 0 ok" 0L Uint64.zero ;
     Alcotest.check_raises "smaller 0 raises"
       (Invalid_argument "out of range")
       (fun () -> ignore (Uint64.of_int (-1)))
