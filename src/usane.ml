@@ -16,6 +16,8 @@ module Uint8 = struct
   external mul : t -> t -> t * bool = "caml__uint8_mul_overflow"
   external sub : t -> t -> t * bool = "caml__uint8_sub_overflow"
 
+  let zero = 0
+
   let pred t = sub t 1
 
   let succ t = add t 1
@@ -53,6 +55,8 @@ module Uint16 = struct
   external add : t -> t -> t * bool = "caml__uint16_add_overflow"
   external mul : t -> t -> t * bool = "caml__uint16_mul_overflow"
   external sub : t -> t -> t * bool = "caml__uint16_sub_overflow"
+
+  let zero = 0
 
   let pred t = sub t 1
 
@@ -100,6 +104,8 @@ module Uint32 = struct
   external mul : t -> t -> t * bool = "caml_uint32_mul_overflow"
   external sub : t -> t -> t * bool = "caml_uint32_sub_overflow"
 
+  let zero = 0l
+
   let pred t = sub t 1l
 
   let succ t = add t 1l
@@ -143,6 +149,8 @@ module Uint64 = struct
   external add : t -> t -> t * bool = "caml_uint64_add_overflow"
   external mul : t -> t -> t * bool = "caml_uint64_mul_overflow"
   external sub : t -> t -> t * bool = "caml_uint64_sub_overflow"
+
+  let zero = 0L
 
   let pred t = sub t 1L
 

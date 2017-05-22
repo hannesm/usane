@@ -24,7 +24,7 @@
 module Uint8 : sig
 
   (** Type of an unsigned 8 bit integer.  It is represented as an [int]*)
-  type t = int
+  type t = private int
 
   (** [pp ppf u] prints the unsigned 8bit integer in hex encoding. *)
   val pp : Format.formatter -> t -> unit
@@ -54,6 +54,9 @@ module Uint8 : sig
   (** [pred t] is the predecessor of [t]: {!sub} [t 1l].  If [t] is [0], [carry]
       is [true], otherwise it is [false]. *)
   val pred : t -> t * bool
+
+  (** [zero] is [Uint8.of_int 0] *)
+  val zero : t
 
   (** [compare t t'] is
       {ul
@@ -88,7 +91,7 @@ end
 module Uint16 : sig
 
   (** Type of an unsigned 16 bit integer.  It is represented as an [int]*)
-  type t = int
+  type t = private int
 
   (** [pp ppf u] prints the unsigned 16bit integer in hex encoding. *)
   val pp : Format.formatter -> t -> unit
@@ -118,6 +121,9 @@ module Uint16 : sig
   (** [pred t] is the predecessor of [t]: {!sub} [t 1l].  If [t] is [0], [carry]
       is [true], otherwise it is [false]. *)
   val pred : t -> t * bool
+
+  (** [zero] is [Uint16.of_int 0] *)
+  val zero : t
 
   (** [compare t t'] is
       {ul
@@ -188,6 +194,9 @@ module Uint32 : sig
       is [true], otherwise it is [false]. *)
   val pred : t -> t * bool
 
+  (** [zero] is [Uint32.of_int 0] *)
+  val zero : t
+
   (** [compare t t'] is
       {ul
       {- [-1] if [t] is smaller than [t'],}
@@ -256,6 +265,9 @@ module Uint64 : sig
   (** [pred t] is the predecessor of [t]: {!sub} [t 1l].  If [t] is [0], [carry]
       is [true], otherwise it is [false]. *)
   val pred : t -> t * bool
+
+  (** [zero] is [Uint64.of_int 0] *)
+  val zero : t
 
   (** [compare t t'] is
       {ul
